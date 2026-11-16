@@ -67,8 +67,11 @@ Daarom:
 - Hoe is daar verantwoord mee omgegaan?
   - De volledige database staat **niet** in de git-repository (`.gitignore`); iedereen downloadt hem zelf lokaal.
   - Alleen **tien** voorbeeldbestanden staan in de repository (`research/voorbeeldspectra/`), als klein voorbeeld voor
-    onderwijs en om de tests te kunnen draaien. Bij publicatie van de repository moet worden afgewogen of dat mag;
-    zonder die tien bestanden werken de tests met echte spectra niet.
+    onderwijs en om de tests te kunnen draaien. Zonder die tien bestanden werken de tests met echte spectra niet.
+  - **Keuze van de student (16 november 2026):** de repository wordt **openbaar** op GitHub gezet, inclusief deze tien
+    voorbeeldbestanden. De AI-assistent heeft vooraf gewaarschuwd dat NIST-data niet vrij herverspreid mag worden en
+    "privé" aangeraden. *[CONCEPT – zelf onderbouwen]* Waarom is openbaar hier toch verantwoord (klein aantal
+    bestanden, onderwijs, bronvermelding), of verwijder je de bestanden later alsnog?
   - Het gebruik is **lokaal en voor onderwijs**, niet commercieel.
   - Bronvermelding staat in de README, in de zijbalk van de app en in de voorbeeldmap.
   - De **structuurformules** komen ook uit het NIST Chemistry WebBook (2D-structuurbestanden, © U.S. Secretary of
