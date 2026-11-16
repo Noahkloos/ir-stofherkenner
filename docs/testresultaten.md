@@ -57,14 +57,14 @@ De repository is gekloond naar een lege map (met een spatie in het pad: `...\sch
 |---|---|
 | `setup.bat` | **Exitcode 0 na 364 s.** Venv aangemaakt, pakketten geïnstalleerd, `nist_IR.zip` gedownload en SHA-256 gecontroleerd, 19.582 bestanden uitgepakt, bibliotheek gebouwd: 18.998 spectra, 982 duplicaten, 584 overgeslagen (identiek aan het hoofdproject) |
 | Tests in de schone kopie | **169 passed, 1 skipped.** De overgeslagen test vergelijkt met de bibliotheek `jcamp`, die alleen voor het onderzoek nodig is (`research/requirements.txt`) |
-| App starten | De app van de schone kopie start en antwoordt binnen 2 s (`/_stcore/health` = ok), zonder vraag om een e-mailadres (headless) |
+| App starten (startcommando, poort 8502) | De app van de schone kopie start en antwoordt binnen 2 s (`/_stcore/health` = ok), zonder vraag om een e-mailadres (headless) |
+| `start.bat` (poort 8501) | Uitgevoerd vanuit de schone kopie nadat de oude testservers (met toestemming van de student) waren gestopt: binnen 2 s luistert een **nieuw** proces (gestart op hetzelfde moment als `start.bat`) op poort 8501. In de browser laadt de app met "Referentiebibliotheek: 18.016 spectra van 15.817 stoffen" |
 
 **Kanttekeningen:**
 - Dit is een schone *kopie* op dezelfde computer, geen schone *computer*: Python 3.14 was al geïnstalleerd en er
   kunnen pakketten in de pip-cache hebben gestaan.
-- `start.bat` zelf kon niet volledig getest worden: poort 8501 was bezet door een eerder gestarte testserver die
-  de AI niet mocht stoppen. Daarom is het startcommando uit `start.bat` op poort 8502 gedraaid. De controles bovenin
-  `start.bat` (venv en bibliotheek aanwezig) en het openen van de browser zijn niet automatisch getest.
+- Bij `start.bat` is niet automatisch gecontroleerd of er ook echt een browsertabblad opengaat, en de foutmeldingen
+  bovenin `start.bat` (als de venv of de bibliotheek ontbreekt) zijn niet getest.
 - Python 3.10/3.11 is niet getest en wordt niet ondersteund (zie `docs/criteria_checklist.md`, T1).
 
 ## 5. Volledige pytest-uitvoer
