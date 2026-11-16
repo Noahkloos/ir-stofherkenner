@@ -2,7 +2,11 @@
 
 from __future__ import annotations
 
+import os
 import sys
+
+# Tests gaan NOOIT naar internet: geen structuren ophalen bij NIST tijdens het testen.
+os.environ["IR_STOFHERKENNER_OFFLINE"] = "1"
 from pathlib import Path
 
 import numpy as np

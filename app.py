@@ -18,14 +18,14 @@ import time
 from pathlib import Path
 
 import numpy as np
-import pandas as pd
 import streamlit as st
 
 from stofherkenner.analyse import Analyse, analyseer, lees_en_valideer
 from stofherkenner.functionele_groepen import BRONVERMELDING
 from stofherkenner.grafieken import PLOTLY_CONFIG, Referentie, overlay_grafiek, pieken_uit_selectie, spectrum_grafiek
 from stofherkenner.matching import IDENTIEK_SCORE, METHODEN, STANDAARD_METHODE, Bibliotheek, laad_bibliotheek
-from stofherkenner.piek_toewijzing import piekentabel
+from stofherkenner.piek_toewijzing import VERKLARING_NOTATIE, PiekRij, piekentabel
+from stofherkenner.structuren import structuur_svg
 from stofherkenner.validatie import ValidatieFout
 from stofherkenner.voorbewerking import RASTER, herken_y_eenheid, transmissie_als_fractie
 
@@ -34,6 +34,8 @@ PROJECTMAP = Path(__file__).resolve().parent
 DATAMAP = Path(os.environ.get("IR_STOFHERKENNER_DATAMAP", PROJECTMAP / "data"))
 VOORBEELDMAP = PROJECTMAP / "research" / "voorbeeldspectra"
 STIJLBESTAND = PROJECTMAP / "stijl.css"
+# Hier bewaart de app de structuurformules die hij bij NIST heeft opgehaald (niet in git).
+STRUCTUURMAP = Path(os.environ.get("IR_STOFHERKENNER_STRUCTUURMAP", DATAMAP / "structuren"))
 
 METHODE_NAMEN = {
     "cosinus": "Cosinusgelijkenis",
@@ -125,14 +127,65 @@ def toon_functionele_groepen(analyse: Analyse) -> None:
                 st.caption(b.toelichting)
 
 
-def toon_piekentabel(rijen: list[dict]) -> None:
-    """Toon pieken met hun mogelijke bindingen als tabel waarin lange tekst netjes doorloopt op een nieuwe regel."""
+def toon_piekentabel(rijen: list[PiekRij]) -> None:
+    """Toon pieken met hun toewijzing als nette tabel (in de stijl van een lijstweergave in Windows).
+
+    Alle tekst gaat door html.escape, zodat een vreemde stofnaam de pagina niet kan verstoren.
+    """
     if not rijen:
         st.info("Er zijn geen pieken gevonden.")
         return
-    tabel = pd.DataFrame(rijen).set_index("Golfgetal (cm⁻¹)")
-    tabel["Relatieve hoogte"] = tabel["Relatieve hoogte"].map("{:.2f}".format)   # 0.63 in plaats van 0.6300
-    st.table(tabel)
+    e = html.escape
+    regels_html = []
+    for r in rijen:
+        if r.regels:
+            regel_cel = "".join(
+                f'<div class="w7-regel"><b>{e(t.groep)}</b><br>{e(t.kenmerk)} '
+                f'<span class="w7-zekerheid w7-zekerheid-{e(t.zekerheid)}">zekerheid {e(t.zekerheid)}</span></div>'
+                for t in r.regels)
+        else:
+            regel_cel = '<span class="w7-leeg">–</span>'
+        if r.toewijzingen:
+            toewijzing_cel = "<ul>" + "".join(f"<li>{e(t)}</li>" for t in r.toewijzingen) + "</ul>"
+        else:
+            toewijzing_cel = '<span class="w7-leeg">Geen standaardtoewijzing in de correlatietabel</span>'
+        if r.vingerafdruk:
+            toewijzing_cel += '<div class="w7-opmerking">Vingerafdrukgebied – toewijzing indicatief</div>'
+        regels_html.append(
+            f'<tr><td class="w7-getal">{r.golfgetal}</td>'
+            f'<td>{e(r.intensiteit)}<br><span class="w7-klein">{r.hoogte:.2f}</span></td>'
+            f'<td>{e(r.bandvorm)}<br><span class="w7-klein">{r.breedte} cm⁻¹</span></td>'
+            f'<td>{regel_cel}</td><td>{toewijzing_cel}</td></tr>')
+    st.markdown(
+        '<div class="w7-lijst-vak"><table class="w7-lijst"><thead><tr>'
+        '<th>Golfgetal<br>(cm⁻¹)</th><th>Intensiteit</th><th>Bandvorm</th>'
+        '<th>Toewijzing volgens de regels</th><th>Mogelijke toewijzingen (correlatietabel)</th>'
+        '</tr></thead><tbody>' + "".join(regels_html) + '</tbody></table></div>',
+        unsafe_allow_html=True,
+    )
+
+
+def toon_structuren(top, online: bool) -> None:
+    """Structuurformules van de stoffen in de top 5, naast elkaar (op een smal scherm onder elkaar)."""
+    st.markdown('<div class="w7-subkop">Structuurformules</div>', unsafe_allow_html=True)
+    kolommen = st.columns(len(top))
+    for kolom, r in zip(kolommen, top.itertuples()):
+        with kolom:
+            with st.container(border=True, key=f"structuur_{r.rang}"):
+                st.markdown(f'<div class="w7-structuur-kop">#{r.rang} {html.escape(r.naam)}</div>',
+                            unsafe_allow_html=True)
+                svg = structuur_svg(r.nist_id, STRUCTUURMAP, online=online)
+                if svg:
+                    st.image(svg, width="stretch")
+                else:
+                    st.markdown('<div class="w7-geen-structuur">Geen structuur beschikbaar</div>',
+                                unsafe_allow_html=True)
+                st.caption(r.formule or "formule onbekend")
+    st.caption("Structuurformules: NIST Chemistry WebBook, NIST SRD 69 (© U.S. Secretary of Commerce), getekend "
+               "met RDKit. " + ("Niet in de lokale opslag? Dan wordt de structuur via internet bij NIST opgehaald; "
+                                "daarbij wordt alleen het NIST-nummer van de stof verstuurd." if online else
+                                "Ophalen via internet staat uit (zie zijbalk): alleen eerder opgehaalde structuren "
+                                "worden getoond."))
 
 
 def toon_statusbalk(delen: list[str]) -> None:
@@ -162,6 +215,13 @@ with st.sidebar:
         help="De voorbeeldbestanden staan zelf in de bibliotheek en scoren daardoor 100%. Met dit vinkje doet het "
              "identieke referentiespectrum niet mee, zodat je ziet of de app de stof ook herkent aan een ANDERE meting.",
     )
+    structuren_ophalen = st.checkbox(
+        "Structuurformules ophalen bij NIST (internet)",
+        value=True,
+        help="Bij de top 5 haalt de app de structuurformule op bij het NIST Chemistry WebBook. Daarbij wordt alleen "
+             "het NIST-nummer van de stof verstuurd, nooit jouw spectrum. Opgehaalde structuren worden lokaal bewaard "
+             "(map data/structuren). Zet dit uit om de app volledig offline te gebruiken.",
+    )
     st.subheader("Over deze app")
     if bibliotheek is not None:
         st.write(f"Referentiebibliotheek: **{len(bibliotheek):,}** spectra van "
@@ -179,7 +239,7 @@ with st.sidebar:
 
 # --- Hoofdvenster ------------------------------------------------------------
 
-st.title("🧪 IR-Stofherkenner")
+st.title("IR-Stofherkenner")
 st.markdown('<div class="w7-ondertitel">Spectrumanalyse en bibliotheekzoekfunctie voor IR-spectra (JCAMP-DX)</div>',
             unsafe_allow_html=True)
 st.warning(
@@ -267,15 +327,16 @@ with groep("spectrum"):
     gekozen_pieken = pieken_uit_selectie(selectie, analyse.pieken)
     if gekozen_pieken:
         gekozen_afgerond = {round(g) for g in gekozen_pieken}
-        st.markdown("**Aangeklikte piek(en): welke binding kan het zijn?**")
-        toon_piekentabel([r for r in rijen_pieken if r["Golfgetal (cm⁻¹)"] in gekozen_afgerond])
-        st.caption("'Volgens de regels' = deze piek is gebruikt door een regel uit het paneel met functionele "
-                   "groepen. 'Mogelijke binding(en)' = alle bindingen die volgens de correlatietabel in dit gebied "
-                   "absorberen. Dubbelklik op een lege plek in de grafiek om de selectie op te heffen "
-                   "(dat zet ook een eventuele zoom terug).")
+        st.markdown('<div class="w7-subkop">Piekinformatie – geselecteerde piek(en)</div>', unsafe_allow_html=True)
+        toon_piekentabel([r for r in rijen_pieken if r.golfgetal in gekozen_afgerond])
+        st.caption(f"{VERKLARING_NOTATIE}. Toewijzingen volgen standaard IR-correlatietabellen en zijn indicatief: "
+                   "gebieden overlappen, en onder 1500 cm⁻¹ (vingerafdrukgebied) is een toewijzing onzeker. "
+                   "'Toewijzing volgens de regels' verwijst naar het paneel met functionele groepen. "
+                   "Dubbelklik op een lege plek in het spectrum om de selectie op te heffen.")
     elif analyse.pieken:
-        st.caption("👆 Klik op een rode stip om te zien welke binding(en) bij die piek kunnen horen "
-                   "(Shift+klik voor meerdere pieken). Alle pieken staan ook in de piekentabel onderaan.")
+        st.caption("Selecteer een piek door op een rode markering in het spectrum te klikken; de toewijzing "
+                   "verschijnt dan hier. Shift + klik selecteert meerdere pieken. Alle pieken staan ook in de "
+                   "piektabel onderaan de pagina.")
 
 if analyse.reden_geen_analyse:
     st.info(analyse.reden_geen_analyse)
@@ -296,6 +357,9 @@ if analyse.top is not None and not analyse.top.empty:
         toon_top5(analyse, methode)
         st.caption(f"Methode: {METHODE_NAMEN[methode]}. Van elke stof telt het best passende referentiespectrum. "
                    "Een hoge score betekent 'lijkt sterk op dit referentiespectrum', niet 'is bewezen deze stof'.")
+        # De structuren worden pas aan het eind van de pagina ingevuld: ophalen kan even duren,
+        # en zo verschijnen grafiek, top 5, overlay en uitleg eerst.
+        structuur_vak = st.container()
 
     # --- Groep: overlay met de top 5 -----------------------------------------
     with groep("overlay"):
@@ -331,9 +395,9 @@ with groep("groepen"):
                "geen beslissing: de top 5 komt uit de vergelijking met de bibliotheek.")
     toon_functionele_groepen(analyse)
 
-with st.expander("Piekentabel: alle gedetecteerde pieken met mogelijke bindingen"):
+with st.expander("Piektabel – alle gedetecteerde pieken met toewijzing"):
     toon_piekentabel(rijen_pieken)
-    st.caption("Bronnen correlatietabel: " + BRONVERMELDING)
+    st.caption(f"{VERKLARING_NOTATIE}. Bronnen correlatietabel: {BRONVERMELDING}")
 
 with st.expander("Hoe komt de app tot dit resultaat?"):
     st.markdown(
@@ -351,6 +415,11 @@ with st.expander("Hoe komt de app tot dit resultaat?"):
     )
     if analyse.tijden_ms:
         st.caption("Rekentijd per stap: " + " · ".join(f"{naam}: {ms:.0f} ms" for naam, ms in analyse.tijden_ms.items()))
+
+if analyse.top is not None and not analyse.top.empty:
+    with structuur_vak:
+        with st.spinner("Structuurformules laden..."):
+            toon_structuren(analyse.top, online=structuren_ophalen)
 
 status = ["Gereed", bestandsnaam, f"{spectrum.x.size} punten", f"{len(analyse.pieken)} pieken",
           f"Methode: {METHODE_NAMEN[methode]}"]

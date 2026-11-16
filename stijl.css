@@ -186,3 +186,89 @@ html, body, [data-testid="stApp"], [data-testid="stApp"] *:not([data-testid="stI
 .w7-statusbalk span.w7-rek {
   flex: 1 1 auto;
 }
+
+/* ---------- Kleine kop binnen een groepvak (bijv. "Piekinformatie") ---------- */
+.w7-subkop {
+  color: var(--w7-blauw);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #c3d2e4;
+  padding: 0.15rem 0 0.2rem 0;
+  margin: 0.35rem 0 0.4rem 0;
+}
+
+/* ---------- Piektabel: lijstweergave zoals in Windows ---------- */
+.w7-lijst-vak {
+  overflow-x: auto;                 /* op een smal scherm horizontaal scrollen binnen de tabel, niet de pagina */
+  border: 1px solid #b5bfcc;
+  background-color: #ffffff;
+}
+table.w7-lijst {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+  color: #1e1e1e;
+  background-color: #ffffff;
+}
+table.w7-lijst th {
+  background: linear-gradient(to bottom, #ffffff 0%, #f1f4f8 50%, #e3e9f1 100%);
+  border-bottom: 1px solid #b5bfcc;
+  border-right: 1px solid #d5dce6;
+  color: #1e3f73;
+  font-weight: 600;
+  text-align: left;
+  padding: 4px 8px;
+  vertical-align: bottom;
+  white-space: nowrap;
+}
+table.w7-lijst td {
+  border-bottom: 1px solid #e4e9ef;
+  border-right: 1px solid #eef1f5;
+  padding: 5px 8px;
+  vertical-align: top;
+}
+table.w7-lijst tbody tr:nth-child(even) td { background-color: #f7f9fc; }
+table.w7-lijst tbody tr:hover td { background-color: #e5f3fb; }
+table.w7-lijst td.w7-getal {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+table.w7-lijst ul { margin: 0; padding-left: 1.1rem; }
+table.w7-lijst li { margin: 0; }
+.w7-klein { color: #5a6573; font-size: 0.78rem; }
+.w7-leeg { color: #8a94a1; }
+.w7-regel + .w7-regel { margin-top: 4px; }
+.w7-opmerking { color: #6b5b00; font-style: italic; font-size: 0.78rem; margin-top: 3px; }
+.w7-zekerheid {
+  display: inline-block;
+  border: 1px solid #a9b8cb;
+  border-radius: 2px;
+  padding: 0 4px;
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+.w7-zekerheid-hoog { background-color: #e3f4e1; border-color: #8cc084; color: #1d5a17; }
+.w7-zekerheid-middel { background-color: #fff3d6; border-color: #e0b84e; color: #6b4e00; }
+.w7-zekerheid-laag { background-color: #eeeeee; border-color: #b9b9b9; color: #4a4a4a; }
+
+/* ---------- Structuurformules: kaartjes naast elkaar ---------- */
+[class*="st-key-structuur_"] {
+  background-color: #ffffff;
+  border: 1px solid #c9d3df !important;
+  border-radius: 3px;
+}
+.w7-structuur-kop {
+  color: var(--w7-blauw);
+  font-weight: 600;
+  font-size: 0.82rem;
+  line-height: 1.25;
+  min-height: 2.1em;
+}
+.w7-geen-structuur {
+  color: #8a94a1;
+  font-size: 0.8rem;
+  border: 1px dashed #c9d3df;
+  padding: 1.8rem 0.3rem;
+  text-align: center;
+}

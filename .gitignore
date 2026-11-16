@@ -22,3 +22,6 @@ data/overgeslagen.csv
 
 # Instellingen van de AI-assistent (niet nodig voor de app)
 .claude/
+
+# Structuurformules die de app bij NIST ophaalt (lokale cache, niet herverspreiden)
+data/structuren/

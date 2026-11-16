@@ -123,13 +123,36 @@ def test_overlay_kan_alle_top5_stoffen_tegelijk_tonen(bibliotheek):
 
 
 def test_piekentabel_met_mogelijke_bindingen(bibliotheek):
+    import re
     app = kies_voorbeeld(start_app(), "ethylacetaat_gas_C141786_IR_0.jdx")
-    tabel = next(t.value for t in app.table if "Mogelijke binding(en)" in list(t.value.columns))
-    golfgetallen = [int(g) for g in tabel.index]
-    assert golfgetallen == sorted(golfgetallen, reverse=True)
-    rij = tabel.loc[[i for i in tabel.index if int(i) == 1766][0]]
-    assert "Ester" in rij["Volgens de regels"] and "C=O" in rij["Mogelijke binding(en)"]
-    assert "Klik op een rode stip" in alle_tekst(app)                         # uitleg hoe je klikt
+    tabel = next(str(m.value) for m in app.markdown if 'class="w7-lijst"' in str(m.value))
+    assert "Mogelijke toewijzingen (correlatietabel)" in tabel and "Intensiteit" in tabel and "Bandvorm" in tabel
+    golfgetallen = [int(g) for g in re.findall(r'<td class="w7-getal">(\d+)</td>', tabel)]
+    assert golfgetallen == sorted(golfgetallen, reverse=True) and 1766 in golfgetallen
+    rij_1766 = tabel.split('<td class="w7-getal">1766</td>')[1].split("</tr>")[0]
+    assert "Ester (–COO–)" in rij_1766 and "ν(C=O)" in rij_1766 and "zekerheid hoog" in rij_1766
+    assert "Selecteer een piek" in alle_tekst(app)                            # uitleg hoe je een piek kiest
+    assert "👆" not in alle_tekst(app)
+
+
+def test_titel_zonder_emoji():
+    app = start_app()
+    assert app.title[0].value == "IR-Stofherkenner"
+
+
+def test_structuurformules_bij_de_top5(bibliotheek, tmp_path, monkeypatch):
+    """Met een (zelfgeschreven) aceton-structuur in de opslag toont de app die bij nummer 1; de rest heeft (offline) geen structuur."""
+    from tests.test_structuren import ACETON_MOL
+    (tmp_path / "C67641.mol").write_text(ACETON_MOL, encoding="latin-1")
+    monkeypatch.setenv("IR_STOFHERKENNER_STRUCTUURMAP", str(tmp_path))
+    app = kies_voorbeeld(start_app(), ACETON)
+    assert not app.exception
+    tekst = alle_tekst(app)
+    assert "Structuurformules" in tekst and "#1 Acetone" in tekst
+    assert len(app.get("image")) == 1                                          # alleen aceton staat in de opslag
+    assert tekst.count("Geen structuur beschikbaar") == 4                      # offline: de andere vier niet
+    assert "NIST Chemistry WebBook" in tekst
+    assert sorted(p.name for p in tmp_path.iterdir()) == ["C67641.mol"]       # niets van internet bijgekomen
 
 
 def test_spectrumgrafiek_is_klikbaar(bibliotheek):
