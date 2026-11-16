@@ -271,7 +271,8 @@ with groep("spectrum"):
         toon_piekentabel([r for r in rijen_pieken if r["Golfgetal (cm⁻¹)"] in gekozen_afgerond])
         st.caption("'Volgens de regels' = deze piek is gebruikt door een regel uit het paneel met functionele "
                    "groepen. 'Mogelijke binding(en)' = alle bindingen die volgens de correlatietabel in dit gebied "
-                   "absorberen. Klik op een lege plek in de grafiek om de selectie op te heffen.")
+                   "absorberen. Dubbelklik op een lege plek in de grafiek om de selectie op te heffen "
+                   "(dat zet ook een eventuele zoom terug).")
     elif analyse.pieken:
         st.caption("👆 Klik op een rode stip om te zien welke binding(en) bij die piek kunnen horen "
                    "(Shift+klik voor meerdere pieken). Alle pieken staan ook in de piekentabel onderaan.")

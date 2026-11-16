@@ -124,7 +124,9 @@ def spectrum_grafiek(
         mode="markers" if losse_punten else "lines",
         line=dict(color=KLEUR_MONSTER, width=1.4),
         marker=dict(color=KLEUR_MONSTER, size=4),
-        hovertemplate="%{x:.0f} cm⁻¹<br>%{y:.3g}<extra></extra>",
+        # De lijn vangt geen muis op: de rode stippen liggen precies óp de lijn, en anders "wint" de lijn
+        # bij een klik en komt de klik nooit bij de stip aan (gemeten in de browser).
+        hoverinfo="skip",
     ))
 
     if pieken:

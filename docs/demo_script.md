@@ -40,6 +40,9 @@ Wijs op de waarschuwing bovenaan: *hulpmiddel, geen bewijs*.
    1242 cm⁻¹*. Vertel: *"Dit zijn vaste ALS-DAN-regels uit de correlatietabel. Er is niets getraind; je kunt elke
    stap narekenen. 1766 is hoger dan de 1740 uit het studieboek, omdat dit een gasfasespectrum is."*
 
+> **Tijd:** stap 3 en 3b samen kosten ongeveer een halve minuut extra. Kom je in tijdnood, sla dan de overlay met
+> alle vijf stoffen over (laat alleen nummer 1 zien) en doe wél de klik op de piek.
+
 ## 2:40 – 3:50 · Waar het fout gaat (eerlijk zijn)
 
 Laat "Eerlijke test" **aan** staan.

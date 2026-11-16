@@ -38,18 +38,21 @@ Laatst gecontroleerd op 16 november 2026, ná de aanpassingen aan de opmaak (Win
 top 5 en de klikbare pieken. Gecontroleerd in de ingebouwde browser van de AI-tool (Chromium), met geëmuleerde
 schermen, gemeten met JavaScript in de pagina:
 
-| Scherm (geëmuleerd) | Voorbeeld | Horizontaal scrollen? | Grafieken | Groepvakken / statusbalk | Fouten in de console |
+| Scherm (geëmuleerd) | Voorbeeld | Horizontaal scrollen? | Grafieken | Groepvakken / tabellen / statusbalk | Fouten in de console |
 |---|---|---|---|---|---|
-| Desktop 1366 × 900 | ethylacetaat | nee | passen binnen het scherm | passen | geen |
-| Tablet 768 × 1024 | tolueen | nee | 681 px breed, binnen het scherm | 725 px, binnen het scherm | geen |
+| Desktop 1366 × 900 | ethylacetaat | nee | 852 px breed, binnen het scherm | 896 / 862–866 / 896 px, binnen het scherm | geen |
+| Tablet 768 × 1024 | tolueen | nee | 681 px breed, binnen het scherm | 725 / 691–695 / 725 px, binnen het scherm | geen |
 
 Verder in de browser gecontroleerd:
-- **Klikken op een rode stip** (ethylacetaat, piek bij 1766 cm⁻¹): de tabel "Aangeklikte piek(en)" verschijnt met
-  "Ester (–COO–): C=O-rek (ester)" in de kolom "Volgens de regels". In Plotly zelf is gemeten dat de klik als
-  selectie binnenkomt (`plotly_selected`, spoor 1, x = 1766).
-  Let op: Plotly herkent een klik pas als de muis even boven de stip heeft gestaan (het gele infovakje verschijnt).
-  Bij een gewone muis gebeurt dat vanzelf. **Op een echte tablet (aanraken) is klikken niet getest**; daarvoor is er
-  de piekentabel onderaan met alle pieken.
+- **Klikken op een rode stip** (ethylacetaat, piek bij 1766 cm⁻¹): de klik komt binnen als selectie van de stip
+  (`plotly_selected`, spoor 1, x = 1766), de tabel "Aangeklikte piek(en)" verschijnt met "Ester (–COO–): C=O-rek
+  (ester)" in de kolom "Volgens de regels", en de aangeklikte stip wordt geel (gemeten: kleur `rgb(255, 204, 0)`).
+  Gevonden en opgelost: eerst "won" de spectrumlijn de klik, omdat de stippen precies óp de lijn liggen; de lijn
+  vangt nu geen klikken meer op. Bij deze laatste controle is de klik in de pagina zelf nagebootst (muis bewegen naar
+  de stip, kort wachten, klikken), omdat het browservenster van de AI-tool verborgen was.
+- **Selectie opheffen:** een enkele klik op een lege plek heft de selectie níét op; een **dubbelklik** wel. De tekst
+  in de app zegt dat nu ook.
+- **Op een echte tablet (aanraken) is klikken niet getest**; daarvoor is er de piekentabel onderaan met alle pieken.
 - **Overlay**: met alle vijf stoffen gekozen toont de grafiek zes lijnen (vijf referenties en het geüploade spectrum),
   elk in een eigen kleur.
 - **Pictogrammen**: de pictogrammen (bijv. op de uploadknop) worden als pictogram getoond, niet als tekst.

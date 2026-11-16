@@ -140,6 +140,9 @@ def test_spectrumgrafiek_is_klikbaar(bibliotheek):
     assert "points" in list(grafiek.proto.selection_mode) or grafiek.proto.selection_mode
     figuur = json.loads(grafiek.proto.spec)
     assert figuur["layout"]["clickmode"] == "event+select"
+    # De lijn mag geen klikken opvangen, anders komen klikken op de stippen (die op de lijn liggen) niet aan
+    lijn = next(s for s in figuur["data"] if s["name"] == "Geüpload spectrum")
+    assert lijn.get("hoverinfo") == "skip"
 
 
 def test_windows7_stijl_wordt_geladen():

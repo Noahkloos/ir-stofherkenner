@@ -90,3 +90,18 @@ def test_boventonen_alleen_bij_zwakke_pieken():
     sterk = mogelijke_bindingen(piek(1766, hoogte=0.63))
     assert any("boventonen" in m for m in zwak)
     assert not any("boventonen" in m for m in sterk)
+
+
+@pytest.mark.parametrize("golfgetal,breedte,hoogte,verwacht_eerst", [
+    (1502, 19, 0.39, "C=C: ringtrilling, aromaat"),     # tolueen: ring vóór NO2
+    (1286, 21, 0.66, "C–O–C"),                            # azijnzuur: C–O-gebied omvat 1286 ...
+    (646, 129, 0.13, "O–H: brede buiging"),               # ethanol (oplossing): brede O–H-wag, niet C–Cl
+])
+def test_bekende_lastige_pieken(golfgetal, breedte, hoogte, verwacht_eerst):
+    mogelijk = mogelijke_bindingen(piek(golfgetal, breedte, hoogte))
+    assert mogelijk[0].startswith(verwacht_eerst), mogelijk
+
+
+def test_c_o_rek_van_zuur_staat_bij_de_mogelijkheden():
+    """De carbonzuurregel noemt een C–O-rek tot 1320 cm⁻¹; de tabel moet die mogelijkheid ook geven."""
+    assert any(m.startswith("C–O: rek") for m in mogelijke_bindingen(piek(1286, 21, 0.66)))
