@@ -1,7 +1,6 @@
-# IR-Stofherkenner - vastgezette versies (getest met Python 3.14.7 op Windows 10)
-# Let op: numpy 2.5 en scipy 1.18 vereisen Python 3.12 of hoger.
-
-# De app
+# IR-Stofherkenner - pakketten die de APP nodig heeft (vastgezette versies).
+# Dit bestand gebruikt ook Streamlit Community Cloud. Getest met Python 3.14.7 (Windows);
+# numpy 2.5 en scipy 1.18 vereisen Python 3.12 of hoger.
 numpy==2.5.5
 scipy==1.18.1
 pandas==3.1.1
@@ -10,12 +9,3 @@ streamlit==1.67.0
 
 # Structuurformules tekenen (de structuren zelf haalt de app bij NIST op)
 rdkit==2026.9.2
-
-# Tests
-pytest==9.2.0
-
-# Notebook (notebooks/piekdetectie_en_matching.ipynb)
-matplotlib==3.11.2
-notebook==7.6.5
-nbconvert==7.17.2
-ipykernel==7.4.0

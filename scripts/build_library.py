@@ -17,9 +17,11 @@ overgeslagen en gelogd; het script crasht er niet op.
 
 from __future__ import annotations
 
+import argparse
 import csv
 import sys
 import time
+import zipfile
 from collections import Counter
 from pathlib import Path
 
@@ -28,11 +30,36 @@ import numpy as np
 PROJECTMAP = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECTMAP))
 
-from stofherkenner.jcamp_lezen import JcampFout, lees_jcamp_bestand  # noqa: E402
+from stofherkenner.jcamp_lezen import JcampFout, decodeer_bytes, lees_jcamp_bestand, lees_jcamp_tekst  # noqa: E402
 from stofherkenner.voorbewerking import RASTER, VoorbewerkingFout, bewerk_voor, x_naar_golfgetal  # noqa: E402
 
 BRONMAP = PROJECTMAP / "data" / "raw" / "nist_ir"
+ZIPPAD = PROJECTMAP / "data" / "raw" / "nist_IR.zip"
 DATAMAP = PROJECTMAP / "data"
+MAX_BESTAND = 50 * 1024**2        # grotere bestanden in de zip slaan we over (beveiliging)
+
+
+def verzamel_bronnen(bronmap: Path, zippad: Path) -> list[tuple[str, object]]:
+    """Alle spectra als (bestandsnaam, functie die het spectrum leest), gesorteerd op naam.
+
+    Voorkeur: de uitgepakte map. Is die er niet, dan lezen we rechtstreeks uit het
+    zip-bestand. Dat scheelt ~580 MB schijfruimte (handig op een server, zoals
+    Streamlit Cloud). De uitkomst is in beide gevallen precies hetzelfde.
+    """
+    bestanden = sorted(bronmap.glob("*.jdx"))
+    if bestanden:
+        return [(pad.name, (lambda pad=pad: lees_jcamp_bestand(pad))) for pad in bestanden]
+    if zippad.exists():
+        archief = zipfile.ZipFile(zippad)
+        leden = {}
+        for info in archief.infolist():
+            naam = Path(info.filename.replace("\\", "/")).name      # alleen de bestandsnaam (geen mappen)
+            if info.is_dir() or not naam.lower().endswith((".jdx", ".dx")) or info.file_size > MAX_BESTAND:
+                continue
+            leden.setdefault(naam, info)
+        return [(naam, (lambda info=info: lees_jcamp_tekst(decodeer_bytes(archief.read(info)))))
+                for naam, info in sorted(leden.items())]
+    return []
 
 # Wanneer noemen we twee spectra van DEZELFDE stof duplicaten?
 # Regel 1: hun cosinusgelijkenis op het raster is minstens 0,99. Dat zijn in de
@@ -113,12 +140,23 @@ def markeer_duplicaten(nist_ids: list[str], bronnen: list[str], spectra: np.ndar
 
 
 def main() -> int:
+    global DATAMAP                              # de uitvoermap kan met --uitvoermap worden gekozen
     if hasattr(sys.stdout, "reconfigure"):      # Windows-console: speciale tekens niet laten crashen
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-    bestanden = sorted(BRONMAP.glob("*.jdx"))
+    parser = argparse.ArgumentParser(description="Bouw de referentiebibliotheek uit de NIST JCAMP-DX-bestanden.")
+    parser.add_argument("--bronmap", type=Path, default=BRONMAP, help="map met uitgepakte .jdx-bestanden")
+    parser.add_argument("--zip", type=Path, default=ZIPPAD, help="zip-bestand (gebruikt als de map leeg is)")
+    parser.add_argument("--uitvoermap", type=Path, default=DATAMAP, help="waar library.npz en metadata.csv komen")
+    args = parser.parse_args()
+    DATAMAP = args.uitvoermap
+    DATAMAP.mkdir(parents=True, exist_ok=True)
+
+    bestanden = verzamel_bronnen(args.bronmap, args.zip)
     if not bestanden:
-        print(f"FOUT: geen .jdx-bestanden gevonden in {BRONMAP}.\nDraai eerst: python scripts/download_database.py", file=sys.stderr)
+        print(f"FOUT: geen .jdx-bestanden gevonden in {args.bronmap} en geen zip in {args.zip}.\n"
+              "Draai eerst: python scripts/download_database.py", file=sys.stderr)
         return 1
+    print(f"{len(bestanden)} bestanden gevonden.", flush=True)
 
     start = time.time()
     spectra: list[np.ndarray] = []
@@ -126,27 +164,27 @@ def main() -> int:
     rijen: list[dict] = []
     overgeslagen: list[tuple[str, str, str]] = []
 
-    for teller, pad in enumerate(bestanden, 1):
+    for teller, (naam, lees) in enumerate(bestanden, 1):
         if teller % 2000 == 0:
             print(f"  {teller} / {len(bestanden)} bestanden verwerkt...", flush=True)
         try:
-            spectrum = lees_jcamp_bestand(pad)
+            spectrum = lees()
             voorbewerkt = bewerk_voor(spectrum)
         except (JcampFout, VoorbewerkingFout) as fout:
-            overgeslagen.append((pad.name, korte_reden(fout), str(fout)))
+            overgeslagen.append((naam, korte_reden(fout), str(fout)))
             continue
         except Exception as fout:  # onverwacht: loggen en doorgaan, nooit crashen
-            overgeslagen.append((pad.name, f"onverwachte fout ({type(fout).__name__})", str(fout)))
+            overgeslagen.append((naam, f"onverwachte fout ({type(fout).__name__})", str(fout)))
             continue
 
         # Bestandsnaam = {NIST Compound ID}_IR_{index}.jdx
-        nist_id, _, index = pad.stem.partition("_IR_")
+        nist_id, _, index = Path(naam).stem.partition("_IR_")
         golfgetal = np.sort(x_naar_golfgetal(spectrum.x, voorbewerkt.x_soort))
         stappen = np.diff(golfgetal)
         spectra.append(voorbewerkt.absorbantie.astype(np.float32))
         maskers.append(voorbewerkt.masker)
         rijen.append({
-            "bestand": pad.name,
+            "bestand": naam,
             "nist_id": nist_id,
             "spectrum_index": index,
             "naam": spectrum.titel,

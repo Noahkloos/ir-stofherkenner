@@ -25,6 +25,7 @@ from stofherkenner.functionele_groepen import BRONVERMELDING
 from stofherkenner.grafieken import PLOTLY_CONFIG, Referentie, overlay_grafiek, pieken_uit_selectie, spectrum_grafiek
 from stofherkenner.matching import IDENTIEK_SCORE, METHODEN, STANDAARD_METHODE, Bibliotheek, laad_bibliotheek
 from stofherkenner.piek_toewijzing import VERKLARING_NOTATIE, PiekRij, piekentabel
+from stofherkenner.opzet import BOUWSLOT, bouw_bibliotheek, moet_automatisch_bouwen
 from stofherkenner.structuren import structuur_svg
 from stofherkenner.validatie import ValidatieFout
 from stofherkenner.voorbewerking import RASTER, herken_y_eenheid, transmissie_als_fractie
@@ -248,6 +249,32 @@ st.warning(
     "laat de uitkomst altijd beoordelen door iemand met vakkennis en bevestig met een tweede techniek.",
     icon="⚠️",
 )
+
+if bibliotheek is None and moet_automatisch_bouwen(PROJECTMAP):
+    # Op Streamlit Cloud bestaat setup.bat niet: de app bouwt de bibliotheek daar zelf, één keer.
+    with st.status("Eerste start: de referentiebibliotheek wordt opgezet (± 5–10 minuten)...", expanded=True) as status:
+        if not BOUWSLOT.acquire(blocking=False):
+            st.write("De opbouw is al gestart door een andere bezoeker. Ververs deze pagina over een paar minuten.")
+            st.stop()
+        try:
+            if not (DATAMAP / "library.npz").exists():
+                voortgang = st.empty()
+
+                def melding(regel: str) -> None:
+                    if regel.startswith(("Stap", "Klaar", "FOUT", "Downloaden mislukt", "Bouwen mislukt")):
+                        st.write(regel)                 # de belangrijke regels blijven staan
+                    else:
+                        voortgang.text(regel)           # voortgang (MB's, aantal bestanden) overschrijft zichzelf
+
+                gelukt = bouw_bibliotheek(PROJECTMAP, melding)
+                status.update(label="Referentiebibliotheek klaar." if gelukt else "Opzetten van de bibliotheek mislukt.",
+                              state="complete" if gelukt else "error")
+        finally:
+            BOUWSLOT.release()
+    haal_bibliotheek.clear()
+    bibliotheek = haal_bibliotheek(str(DATAMAP))
+    if bibliotheek is not None:
+        st.rerun()
 
 if bibliotheek is None:
     st.error("**De referentiebibliotheek is nog niet aanwezig.** Sluit de app, dubbelklik op `setup.bat` "

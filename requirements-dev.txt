@@ -1,0 +1,12 @@
+# Extra pakketten voor ONTWIKKELEN op de eigen computer: tests en het notebook.
+# setup.bat installeert dit bestand (en daarmee ook requirements.txt).
+-r requirements.txt
+
+# Tests
+pytest==9.2.0
+
+# Notebook (notebooks/piekdetectie_en_matching.ipynb)
+matplotlib==3.11.2
+notebook==7.6.5
+nbconvert==7.17.2
+ipykernel==7.4.0

@@ -30,9 +30,9 @@ echo [2/4] Virtual environment aanmaken in de map .venv ...
 %PY% -m venv .venv
 if errorlevel 1 goto fout
 :venv_bestaat
-echo [2/4] Pakketten installeren (requirements.txt) ...
+echo [2/4] Pakketten installeren (requirements-dev.txt) ...
 ".venv\Scripts\python.exe" -m pip install --upgrade pip --quiet
-".venv\Scripts\python.exe" -m pip install -r requirements.txt --quiet
+".venv\Scripts\python.exe" -m pip install -r requirements-dev.txt --quiet
 if errorlevel 1 goto fout
 
 rem --- Stap 3: database downloaden ---

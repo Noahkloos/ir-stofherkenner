@@ -5,8 +5,10 @@ from __future__ import annotations
 import os
 import sys
 
-# Tests gaan NOOIT naar internet: geen structuren ophalen bij NIST tijdens het testen.
+# Tests gaan NOOIT naar internet: geen structuren ophalen bij NIST tijdens het testen,
+# en nooit automatisch de bibliotheek downloaden/bouwen (dat doet de app alleen op Streamlit Cloud).
 os.environ["IR_STOFHERKENNER_OFFLINE"] = "1"
+os.environ["IR_STOFHERKENNER_AUTOBOUW"] = "0"
 from pathlib import Path
 
 import numpy as np

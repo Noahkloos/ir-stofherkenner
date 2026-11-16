@@ -166,7 +166,11 @@ def main() -> int:
             )
             return 1
 
-    # Stap 2: uitpakken (alleen als dat nog niet gedaan is)
+    # Stap 2: uitpakken (alleen als dat nog niet gedaan is). Met --niet-uitpakken slaan we dit over:
+    # build_library.py kan ook rechtstreeks uit de zip lezen (scheelt ~580 MB, bijv. op Streamlit Cloud).
+    if "--niet-uitpakken" in sys.argv[1:]:
+        print("Uitpakken overgeslagen (--niet-uitpakken); de bibliotheek wordt rechtstreeks uit de zip gebouwd.")
+        return 0
     if KLAAR_MARKERING.exists():
         print(f"De spectra zijn al uitgepakt in {UITPAK_MAP}")
         return 0
