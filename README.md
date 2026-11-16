@@ -6,9 +6,13 @@ Een webapp waarin een laborant een **IR-spectrum (JCAMP-DX)** uploadt. De app:
 2. toont direct een grafiek van het spectrum met de gevonden pieken gemarkeerd;
 3. vergelijkt het spectrum met ruim 18.000 referentiespectra uit het NIST Chemistry WebBook;
 4. toont een **top 5** van meest waarschijnlijke stoffen (naam, CAS-nummer, molecuulformule, overeenkomst 0–100%);
-5. legt het beste referentiespectrum over het geüploade spectrum heen;
+5. legt een of meer stoffen uit de top 5 over het geüploade spectrum heen (standaard nummer 1);
 6. legt uit welke **functionele groepen** waarschijnlijk aanwezig zijn, met de piek als reden
-   (bijv. "C=O-rek: piek bij 1742 cm⁻¹").
+   (bijv. "C=O-rek: piek bij 1742 cm⁻¹");
+7. toont na een **klik op een rode piekstip** een tabel met de mogelijke binding(en) van die piek; een piekentabel
+   onderaan bevat alle pieken.
+
+De opmaak is in de stijl van klassieke IR-software / Windows 7 (titelbalk, groepvakken, statusbalk; zie `stijl.css`).
 
 Project voor de minor AI (Hogeschool Utrecht), opleiding Chemische Technologie.
 
@@ -37,7 +41,8 @@ Er wordt **geen model getraind**. De app gebruikt klassieke (symbolische) AI:
 | Pieken vinden | Savitzky-Golay, ruis via MAD, prominentie-drempel, minimale breedte | `stofherkenner/piekdetectie.py` |
 | Stof zoeken | similarity search: cosinusgelijkenis op logaritme + afgeleide | `stofherkenner/matching.py` |
 | Uitleg | expertsysteem met ALS-DAN-regels voor 8 functionele groepen | `stofherkenner/functionele_groepen.py` |
-| Scherm | Streamlit + Plotly | `app.py`, `stofherkenner/grafieken.py` |
+| Binding per piek | opzoeken in een correlatietabel (golfgetalgebieden) | `stofherkenner/piek_toewijzing.py` |
+| Scherm | Streamlit + Plotly, opmaak in Windows 7-stijl | `app.py`, `stofherkenner/grafieken.py`, `stijl.css` |
 
 Meer: [docs/ontwerp.md](docs/ontwerp.md) (architectuur en ontwerpkeuzes).
 
@@ -52,6 +57,7 @@ andere fase gemeten, dan beduidend lager. Zoeken door de hele bibliotheek duurt 
 
 ```
 app.py                     de webapp
+stijl.css                  de opmaak (Windows 7-stijl)
 stofherkenner/             alle rekenwerk, in kleine modules
 scripts/                   database downloaden/bouwen, evaluatie, regeltoets
 tests/                     pytest-tests (draaien: .venv\Scripts\python -m pytest)
@@ -65,6 +71,7 @@ Handige commando's (vanuit de projectmap):
 
 ```
 .venv\Scripts\python -m pytest                              alle tests
+.venv\Scripts\python scripts\maak_testrapport.py             tests draaien + docs\testresultaten.md maken
 .venv\Scripts\python scripts\evaluatie.py                   evaluatie opnieuw draaien
 .venv\Scripts\python -m notebook notebooks\piekdetectie_en_matching.ipynb
 ```

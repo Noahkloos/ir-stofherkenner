@@ -27,10 +27,14 @@ flowchart TD
         P --> K[piekdetectie.py<br/>Savitzky-Golay, MAD-ruis,<br/>prominentie, breedte]
         K --> G1
         K --> R[functionele_groepen.py<br/>expertsysteem: 8 ALS-DAN-regels]
+        K --> PT[piek_toewijzing.py<br/>correlatietabel: mogelijke binding per piek]
+        R --> PT
+        G1 -->|klik op rode stip| PT
+        PT --> TB["Tabel: aangeklikte piek(en)<br/>+ piekentabel met alle pieken"]
         P --> M[matching.py<br/>log + afgeleide, cosinus,<br/>gevectoriseerd met numpy]
         C --> M
         M --> T[Top 5 + waarschuwingen<br/>lage score / nummers 1-2 dicht bij elkaar]
-        M --> G2[Overlay: referentie over monster]
+        M --> G2[Overlay: 1 tot 5 referenties<br/>uit de top 5 over het monster]
         R --> X[Uitleg: groep + piek als reden<br/>+ zekerheid hoog/middel/laag]
     end
 ```
@@ -54,6 +58,10 @@ keten kunnen draaien.
 | **Gasfase-varianten in de regels** | Alleen studieboekwaarden (vloeistof) | ± 53% van de bibliotheek is gas; vrije O–H en zuur-monomeer zien er anders uit | `stofherkenner/functionele_groepen.py` |
 | **"Eerlijke test"-schakelaar** in de app | — | De voorbeeldbestanden staan zelf in de bibliotheek en scoren dus 100%; met de schakelaar zie je het echte gedrag | `tests/test_app.py::test_eerlijke_test_geeft_geen_100_procent` |
 | **Streamlit + Plotly** | Flask + JavaScript | Weinig code, interactieve en responsieve grafieken | `app.py` |
+| **Opmaak in Windows 7-/IR-software-stijl** (wens student) | Standaard Streamlit-uiterlijk | Ziet er vertrouwd en professioneel uit voor laboranten. Alleen CSS met lokale lettertypen (niets van internet); geen nepmenu's die niets doen | `stijl.css`, `test_app.py::test_windows7_stijl_wordt_geladen` |
+| **Overlay met 1–5 referenties** (wens student) | Eén referentie tegelijk | Vergelijken van de kandidaten in één oogopslag; standaard alleen nummer 1, zodat de grafiek rustig blijft | `test_app.py::test_overlay_kan_alle_top5_stoffen_tegelijk_tonen` |
+| **Klik op een piek → mogelijke binding(en)** (wens student) | Alleen de piekentabel | Directe uitleg bij elke piek. Eerlijk "mogelijke" bindingen, want gebieden overlappen; regels die de piek gebruiken staan apart, zodat tabel en paneel elkaar niet tegenspreken | `stofherkenner/piek_toewijzing.py`, `tests/test_piek_toewijzing.py` |
+| **Spectrumgrafiek verandert niet na een klik** | Aangeklikte stip zelf geel kleuren in Python | Streamlit herkent een grafiek aan zijn inhoud; een andere figuur = "nieuwe" grafiek en dan is de klik vergeten (gevonden in de broncode van Streamlit). Plotly kleurt de stip daarom zelf in de browser | `stofherkenner/grafieken.py` |
 | **Validatie vóór alles** | Pas fouten afvangen als het misgaat | Kapotte of kwaadaardige bestanden komen niet verder dan de controle; alle fouten worden een nette melding | `tests/test_validatie.py` (o.a. 400 willekeurig beschadigde bestanden) |
 
 ## 4. Wat bewust niet gebouwd is

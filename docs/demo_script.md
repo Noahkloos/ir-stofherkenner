@@ -30,7 +30,12 @@ Wijs op de waarschuwing bovenaan: *hulpmiddel, geen bewijs*.
 1. Upload weer ethylacetaat. Top 5: Ethyl Acetate bovenaan, daarna andere acetaat-esters.
 2. Wijs op de melding *"Dit exacte spectrum staat zelf in de bibliotheek"* → zet **"Eerlijke test"** aan.
    Uitkomst in de eerlijke test: **Ethyl Acetate blijft op 1 (96,0%)**, nummer 2 is een andere acetaat (88,1%).
-3. Scrol naar de **overlay**: referentie en monster over elkaar.
+3. Scrol naar de **overlay**: standaard ligt nummer 1 over het monster. Kies in "Referenties over het spectrum
+   leggen" ook de andere vier: alle vijf acetaat-esters lijken sterk op elkaar, vooral boven 1500 cm⁻¹.
+3b. Scrol terug naar de grafiek, ga met de muis op de **rode stip bij 1766 cm⁻¹** staan (het gele vakje verschijnt)
+   en klik. Onder de grafiek verschijnt de tabel: *Volgens de regels: Ester (–COO–): C=O-rek* en een lijst met
+   mogelijke bindingen. Vertel: *"De tabel zegt 'mogelijke' bindingen, omdat de gebieden in de correlatietabel
+   overlappen. Onder 1500 cm⁻¹ zegt hij er eerlijk bij dat het vingerafdrukgebied is."*
 4. Scrol naar **functionele groepen**: *Ester (–COO–), zekerheid hoog: C=O-rek bij 1766 cm⁻¹, C–O–C-rek bij
    1242 cm⁻¹*. Vertel: *"Dit zijn vaste ALS-DAN-regels uit de correlatietabel. Er is niets getraind; je kunt elke
    stap narekenen. 1766 is hoger dan de 1740 uit het studieboek, omdat dit een gasfasespectrum is."*

@@ -80,6 +80,17 @@ downloaden en inventariseren van de database.)
 | Waarschuwingsdrempels 65% en 5 procentpunt | AI | Gekozen op basis van de gemeten scoreverdelingen |
 | Schakelaar "Eerlijke test" in de app | AI | Voorbeeldbestanden zouden anders altijd 100% scoren |
 
+## 4b. Extra wensen na de eerste oplevering
+
+Na de eerste oplevering wilde de student nog drie veranderingen in de app zelf. Alle drie zijn gebouwd, getest en
+in de browser gecontroleerd (zie `docs/criteria_checklist.md`, E1–E3):
+
+| Wens | Status |
+|---|---|
+| Opmaak in de stijl van IR-software / Windows 7 | ✅ |
+| Overlay van het spectrum met de top-5-stoffen | ✅ |
+| Klikken op een piek → tabel met de mogelijke binding | ✅ (niet getest op een tablet met aanraakscherm) |
+
 ## 5. Mogelijke vervolgstappen (met meer tijd)
 
 - Testen met eigen metingen (ATR) van het lab, en kijken hoeveel slechter de herkenning dan is.
