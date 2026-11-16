@@ -70,6 +70,9 @@ Handige commando's (vanuit de projectmap):
 ```
 
 Gebruik `.venv\Scripts\python -m notebook` en niet alleen `jupyter`: op deze computer wijst `jupyter` naar Anaconda.
+Het notebook is al uitgevoerd en bevat alle uitvoer en grafieken, dus je kunt het ook lezen zonder het opnieuw te
+draaien. (Opnieuw uitvoeren vanuit Jupyter is in de omgeving van de AI-assistent niet gelukt en daarom niet getest;
+`.venv\Scripts\python scripts\voer_notebook_uit.py notebooks\piekdetectie_en_matching.ipynb` werkt wel.)
 
 ## Bekende beperkingen
 

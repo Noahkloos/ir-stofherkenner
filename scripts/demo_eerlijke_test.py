@@ -36,6 +36,8 @@ def main() -> int:
                 print("   WAARSCHUWING:", w)
             if not a.zoek_waarschuwingen:
                 print("   (geen waarschuwing)")
+            for b in a.bevindingen:
+                print(f"   GROEP {b.groep} [zekerheid {b.zekerheid}]: {'; '.join(b.redenen)}")
             print()
     tekst = buffer.getvalue()
     (root / "docs" / "demo_eerlijke_test.txt").write_text(tekst, encoding="utf-8")

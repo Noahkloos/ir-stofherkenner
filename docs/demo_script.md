@@ -47,7 +47,10 @@ Laat "Eerlijke test" **aan** staan.
 2. **Upload `butylamine_vloeistof_C109739_IR_2.jdx`.** Nummer 1 is **1,5-Pentanediamine (80,5%)**; butylamine staat
    niet in de top 5, en **de app geeft géén waarschuwing**.
    Vertel: *"Dit is het gevaarlijkste soort fout: een redelijk hoge score, geen waarschuwing, en toch fout. Daarom
-   blijft vakkennis nodig."* Dit sluit aan op LU3.
+   blijft vakkennis nodig."* Dit sluit aan op LU3. Ook hier klopt de uitleglaag wel: **N–H (amine), zekerheid
+   middel** (N–H-rek bij 3298 cm⁻¹, N–H-buiging bij 1602 cm⁻¹).
+
+De functionele groepen die in deze demo genoemd worden staan ook in `docs/demo_eerlijke_test.txt` (regels "GROEP").
 
 ## 3:50 – 4:30 · Hoe goed is het in cijfers?
 

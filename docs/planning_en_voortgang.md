@@ -62,7 +62,8 @@ downloaden en inventariseren van de database.)
 | Matching + evaluatie | ✅ af (top-1 52,9%, top-5 69,5%) |
 | Functionele groepen | ✅ af (8 regels, getoetst) |
 | Documentatie LU1–LU5 | ✅ concepten af; **zelfevaluatie en reflectie nog door de student** |
-| `setup.bat` / `start.bat` | ✅ getest op een schone kopie (zie `docs/testresultaten.md`) |
+| `setup.bat` | ✅ getest op een schone kopie (exitcode 0, zie `docs/testresultaten.md`) |
+| `start.bat` | ⚠️ niet volledig getest: alleen het startcommando (op poort 8502), omdat poort 8501 bezet was door een oude testserver |
 | Python 3.10 ondersteunen | ❌ niet gehaald: de app vraagt Python 3.12+ (zie `docs/criteria_checklist.md`) |
 | Test op een echte tablet | ❌ niet gedaan; alleen tabletformaat geëmuleerd in een browser |
 

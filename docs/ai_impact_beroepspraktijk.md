@@ -24,7 +24,7 @@ hebben een eigen commerciële zoekbibliotheek)? Hoe lang duurt stap 1–3 ongeve
 
 | Stap | Zonder tool | Met tool (gemeten) | Bron |
 |---|---|---|---|
-| Bestand controleren, inlezen en grafiek tonen | handmatig in software | 229 ms gemeten in de app voor het ethanolvoorbeeld; < 2 s voor een bestand van 5 MB (alleen het rekenwerk van de server) | `docs/testresultaten.md` |
+| Bestand controleren, inlezen en grafiek tonen | handmatig in software | 229 ms gemeten in de app voor het ethanolvoorbeeld; 0,36–0,42 s voor een bestand van 4,84 MB (rekenwerk van de server; tekenen in de browser niet apart gemeten) | `docs/testresultaten.md` |
 | Vergelijken met referenties | één voor één zoeken en vergelijken | ± 23 ms voor alle 18.016 referentiespectra (mediaan, cosinus) | `docs/evaluatie.md` |
 | Functionele groepen bepalen | correlatietabel naast het spectrum | direct, met de piek als reden | app |
 

@@ -7,6 +7,7 @@ Eerlijke test: het identieke spectrum doet niet mee. Gemaakt door scripts/demo_e
    #4  90.0%  6-Methyl-1-heptene                            5026-76-6    [gas] C 8 H 16
    #5  90.0%  1-Nonene                                      124-11-8     [gas] C 9 H 18
    WAARSCHUWING: De nummers 1 en 2 liggen heel dicht bij elkaar (verschil 1.2 procentpunt). Het systeem kan niet betrouwbaar tussen deze stoffen kiezen; het gaat vaak om isomeren of stoffen uit dezelfde reeks. Gebruik aanvullende gegevens (bijv. kookpunt, MS of NMR).
+   GROEP C=C (alkeen) [zekerheid hoog]: C=C-rek: piek bij 1642 cm⁻¹; =C–H-rek (boven 3000 cm⁻¹): piek bij 3082 cm⁻¹; =C–H-buiging (uit het vlak): piek bij 914 cm⁻¹
 
 === aceton_gas_C67641_IR_0.jdx | juiste stof: Acetone (67-64-1) | plek juiste stof: 1
    #1  95.8%  Acetone                                       67-64-1      [gas] C H3 C O C H3
@@ -15,6 +16,7 @@ Eerlijke test: het identieke spectrum doet niet mee. Gemaakt door scripts/demo_e
    #4  60.1%  Methoxyacetone                                5878-19-3    [gas] C 4 H 8 O 2
    #5  55.8%  2-Butanone                                    78-93-3      [gas] C 4 H 8 O
    (geen waarschuwing)
+   GROEP C=O (keton of aldehyde) [zekerheid hoog]: C=O-rek: piek bij 1742 cm⁻¹
 
 === aceton_gas_micrometer_C67641_IR_1.jdx | juiste stof: DIMETHYL KETONE (67-64-1) | plek juiste stof: 1
    #1  91.2%  Acetone                                       67-64-1      [gas] C H3 C O C H3
@@ -23,6 +25,7 @@ Eerlijke test: het identieke spectrum doet niet mee. Gemaakt door scripts/demo_e
    #4  65.6%  1,4-Diacetoxy-2-butene                        18621-75-5   [gas] C 8 H 12 O 4
    #5  65.4%  cis-1,4-Diacetoxy-2-butene                    25260-60-0   [gas] C 8 H 12 O 4
    (geen waarschuwing)
+   GROEP C=O (keton of aldehyde) [zekerheid hoog]: C=O-rek: piek bij 1750 cm⁻¹
 
 === azijnzuur_oplossing_C64197_IR_2.jdx | juiste stof: ACETIC ACID (64-19-7) | plek juiste stof: niet in top 5
    #1  56.3%  TRICHLOROACRYLIC ACID                         2257-35-4    [oplossing] C3 H Cl3 O2
@@ -32,6 +35,8 @@ Eerlijke test: het identieke spectrum doet niet mee. Gemaakt door scripts/demo_e
    #5  53.6%  Stearic acid                                  57-11-4      [oplossing] C18 H36 O2
    WAARSCHUWING: De beste score is laag (56.3%). Waarschijnlijk staat deze stof niet in de database, is het een mengsel, of is het spectrum op een andere manier gemeten dan de referentie (bijv. ATR of vaste stof tegenover een gasfase-referentie).
    WAARSCHUWING: De nummers 1 en 2 liggen heel dicht bij elkaar (verschil 1.2 procentpunt). Het systeem kan niet betrouwbaar tussen deze stoffen kiezen; het gaat vaak om isomeren of stoffen uit dezelfde reeks. Gebruik aanvullende gegevens (bijv. kookpunt, MS of NMR).
+   GROEP Carbonzuur (–COOH) [zekerheid hoog]: C=O-rek (zuur, dimeer): piek bij 1710 cm⁻¹; zeer brede O–H-rek van het zuur: brede band bij 2994 cm⁻¹; vleugel van de brede O–H-band van het zuur: piek bij 2626 cm⁻¹; C–O-rek: piek bij 1286 cm⁻¹
+   GROEP C=O (keton of aldehyde) [zekerheid laag]: C=O-rek: piek bij 1710 cm⁻¹
 
 === benzonitril_vloeistof_micrometer_C100470_IR_1.jdx | juiste stof: BENZONITRILE (100-47-0) | plek juiste stof: 3
    #1  67.0%  AZOXYBENZENE                                  495-48-7     [oplossing] C12 H10 N2 O
@@ -40,6 +45,8 @@ Eerlijke test: het identieke spectrum doet niet mee. Gemaakt door scripts/demo_e
    #4  61.2%  1,4-NAPHTHALENEDINITRILE, 1,2,3,4-TETRAHYDRO- 25679-87-2   [vast] C18 H14 N2
    #5  60.8%  N-Sulfinylaniline                             1122-83-4    [oplossing] C6 H5 N O S
    WAARSCHUWING: De nummers 1 en 2 liggen heel dicht bij elkaar (verschil 1.2 procentpunt). Het systeem kan niet betrouwbaar tussen deze stoffen kiezen; het gaat vaak om isomeren of stoffen uit dezelfde reeks. Gebruik aanvullende gegevens (bijv. kookpunt, MS of NMR).
+   GROEP C≡N (nitril) [zekerheid hoog]: C≡N-rek: piek bij 2214 cm⁻¹
+   GROEP Aromaat (benzeenring) [zekerheid hoog]: ringtrilling C=C (~1600): piek bij 1594 cm⁻¹; ringtrilling C=C (~1500): piek bij 1486 cm⁻¹; aromatische C–H-rek (boven 3000 cm⁻¹): piek bij 3054 cm⁻¹; C–H-buiging uit het vlak: piek bij 758 cm⁻¹
 
 === butylamine_vloeistof_C109739_IR_2.jdx | juiste stof: BUTANAMINE (109-73-9) | plek juiste stof: niet in top 5
    #1  80.5%  1,5-Pentanediamine                            462-94-2     [vloeistof] C5 H14 N2
@@ -48,6 +55,8 @@ Eerlijke test: het identieke spectrum doet niet mee. Gemaakt door scripts/demo_e
    #4  74.6%  1,4-BUTANE DIAMINE                            110-60-1     [onbekend] C4 H12 N2
    #5  72.0%  DUOMEEN O                                     4253-76-3    [onbekend] C21 H46 N2
    (geen waarschuwing)
+   GROEP O–H (alcohol of fenol) [zekerheid laag]: O–H-rek met waterstofbruggen (vloeistof/vast): brede band bij 3374 cm⁻¹
+   GROEP N–H (amine) [zekerheid middel]: N–H-rek: piek bij 3298 cm⁻¹; N–H-rek: brede band bij 3374 cm⁻¹; N–H-buiging: piek bij 1602 cm⁻¹
 
 === ethanol_gas_C64175_IR_0.jdx | juiste stof: Ethanol (64-17-5) | plek juiste stof: 1
    #1  90.9%  Ethanol                                       64-17-5      [gas] C2 H5 O H
@@ -56,6 +65,7 @@ Eerlijke test: het identieke spectrum doet niet mee. Gemaakt door scripts/demo_e
    #4  66.8%  1-Butanol                                     71-36-3      [gas] C 4 H 10 O
    #5  66.3%  Cyclobutanemethanol                           4415-82-1    [gas] C 5 H 10 O
    (geen waarschuwing)
+   GROEP O–H (alcohol of fenol) [zekerheid hoog]: vrije O–H-rek (gasfase of verdunde oplossing): piek bij 3674 cm⁻¹; C–O-rek: piek bij 1058 cm⁻¹
 
 === ethanol_oplossing_C64175_IR_3.jdx | juiste stof: ETHANOL (64-17-5) | plek juiste stof: 3
    #1  71.0%  1,2-ETHANEDIOL                                107-21-1     [vloeistof] C2 H6 O2
@@ -64,6 +74,7 @@ Eerlijke test: het identieke spectrum doet niet mee. Gemaakt door scripts/demo_e
    #4  57.2%  MANNITOL                                      69-65-8      [vast] C6 H14 O6
    #5  56.1%  TRIETHANOLAMINE                               102-71-6     [vloeistof] C6 H15 N O3
    (geen waarschuwing)
+   GROEP O–H (alcohol of fenol) [zekerheid hoog]: O–H-rek met waterstofbruggen (vloeistof/vast): brede band bij 3322 cm⁻¹; vrije O–H-rek (gasfase of verdunde oplossing): piek bij 3634 cm⁻¹; C–O-rek: piek bij 1046 cm⁻¹
 
 === ethylacetaat_gas_C141786_IR_0.jdx | juiste stof: Ethyl Acetate (141-78-6) | plek juiste stof: 1
    #1  96.0%  Ethyl Acetate                                 141-78-6     [gas] C H3 C O2 C H2 C H3
@@ -72,6 +83,8 @@ Eerlijke test: het identieke spectrum doet niet mee. Gemaakt door scripts/demo_e
    #4  85.2%  Acetic acid, butyl ester                      123-86-4     [gas] C 6 H 12 O 2
    #5  84.2%  n-Propyl acetate                              109-60-4     [gas] C 5 H 10 O 2
    (geen waarschuwing)
+   GROEP C=O (keton of aldehyde) [zekerheid laag]: C=O-rek: piek bij 1766 cm⁻¹
+   GROEP Ester (–COO–) [zekerheid hoog]: C=O-rek (ester): piek bij 1766 cm⁻¹; C–O–C-rek (159% van de hoogte van de C=O-piek): piek bij 1242 cm⁻¹; tweede C–O-rek: piek bij 1054 cm⁻¹
 
 === tolueen_vloeistof_C108883_IR_2.jdx | juiste stof: TOLUENE (108-88-3) | plek juiste stof: 1
    #1  80.7%  BENZENE, METHYL-                              108-88-3     [oplossing] C7 H8
@@ -80,4 +93,5 @@ Eerlijke test: het identieke spectrum doet niet mee. Gemaakt door scripts/demo_e
    #4  70.8%  N-PENTYL BENZENE                              538-68-1     [vloeistof] C11 H16
    #5  68.1%  ETHYL BENZENE                                 100-41-4     [vloeistof] C8 H10
    (geen waarschuwing)
+   GROEP Aromaat (benzeenring) [zekerheid hoog]: ringtrilling C=C (~1600): piek bij 1610 cm⁻¹; ringtrilling C=C (~1500): piek bij 1502 cm⁻¹; aromatische C–H-rek (boven 3000 cm⁻¹): piek bij 3038 cm⁻¹; C–H-buiging uit het vlak: piek bij 734 cm⁻¹
 
