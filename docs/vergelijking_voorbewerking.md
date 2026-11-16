@@ -16,8 +16,13 @@ top-1-nauwkeurigheid. Twee bekende zwakke punten van die aanpak:
 ## Opzet
 
 - Zelfde leave-one-out-test als in [evaluatie.md](evaluatie.md), met cosinusgelijkenis.
-- De stoffen zijn vast in twee helften verdeeld. **Alle varianten zijn alleen op de afstelhelft vergeleken**
-  (1882 testspectra). De controlehelft (2052 testspectra) is pas daarna gebruikt, en alleen voor de gekozen variant.
+- De stoffen zijn vast in twee helften verdeeld. **De varianten in de tabel hieronder zijn alleen op de afstelhelft
+  vergeleken** (1882 testspectra). De controlehelft (2052 testspectra) is daarna alleen gebruikt
+  voor de gekozen variant.
+- **Eerlijke kanttekening:** vóór deze splitsing is in een eerste verkenning op de hele testset al gezien dat
+  "wortel/log + afgeleide" veel beter werkt dan de kale absorbantie. De grote ontwerpkeuze is dus op alle data
+  verkend; alleen de details (soort compressie, factor, venster) zijn zuiver op de afstelhelft gekozen.
+  De controlehelft is daardoor geen volledig onafhankelijke toets. Zie `docs/ai_logboek.md`.
 - Ruistest: bij het testspectrum is willekeurige ruis opgeteld (standaarddeviatie 1% en 3% van de hoogste piek)
   om te zien of een variant niet alleen op "schone" NIST-spectra werkt.
 
@@ -46,8 +51,9 @@ Gekozen instelling in `stofherkenner/voorbewerking.py`: **compressie = `log`, af
 | Kale absorbantie (uitgangssituatie) | 30.1% / 43.5% | 31.0% / 43.9% |
 | Gekozen instelling | 54.0% / 69.7% | 51.9% / 69.3% |
 
-De controlehelft is niet gebruikt bij het kiezen. Als de winst daar ongeveer even groot is als op de afstelhelft,
-is de verbetering echt en geen toeval of overfitting.
+De controlehelft is niet gebruikt bij het kiezen van de details. Als de winst daar ongeveer even groot is als op de
+afstelhelft, zijn die details niet "op toeval" afgesteld. (De grote keuze voor compressie + afgeleide is wel op alle
+data verkend; zie de kanttekening bij "Opzet".)
 
 ## Kanttekeningen
 
@@ -58,4 +64,4 @@ is de verbetering echt en geen toeval of overfitting.
 - Logaritmische compressie maakt de score gevoeliger voor kleine piekjes. Bij een erg ruizig spectrum kan dat
   nadelig zijn; de ruistest hierboven laat zien hoeveel de nauwkeurigheid dan daalt.
 
-Rekentijd: 203 s.
+Rekentijd: 119 s.

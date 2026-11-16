@@ -13,7 +13,9 @@ spectrum doen? We testen twee ideeen, los en gecombineerd:
 Om niet "af te stellen op de testset" zijn de stoffen vast in twee helften
 verdeeld. Alle varianten worden vergeleken op de AFSTELHELFT. Daarna wordt
 alleen de gekozen variant (en de uitgangssituatie) nagerekend op de
-CONTROLEHELFT, die bij het kiezen niet is gebruikt.
+CONTROLEHELFT. Let op: het idee "compressie + afgeleide" kwam uit een eerdere
+verkenning op alle data (zie docs/ai_logboek.md); alleen de details zijn
+zuiver op de afstelhelft gekozen.
 
 Uitvoer: docs/vergelijking_voorbewerking.md en docs/vergelijking_voorbewerking.csv
 """
@@ -137,8 +139,13 @@ top-1-nauwkeurigheid. Twee bekende zwakke punten van die aanpak:
 ## Opzet
 
 - Zelfde leave-one-out-test als in [evaluatie.md](evaluatie.md), met cosinusgelijkenis.
-- De stoffen zijn vast in twee helften verdeeld. **Alle varianten zijn alleen op de afstelhelft vergeleken**
-  ({len(afstel)} testspectra). De controlehelft ({len(controle)} testspectra) is pas daarna gebruikt, en alleen voor de gekozen variant.
+- De stoffen zijn vast in twee helften verdeeld. **De varianten in de tabel hieronder zijn alleen op de afstelhelft
+  vergeleken** ({len(afstel)} testspectra). De controlehelft ({len(controle)} testspectra) is daarna alleen gebruikt
+  voor de gekozen variant.
+- **Eerlijke kanttekening:** vóór deze splitsing is in een eerste verkenning op de hele testset al gezien dat
+  "wortel/log + afgeleide" veel beter werkt dan de kale absorbantie. De grote ontwerpkeuze is dus op alle data
+  verkend; alleen de details (soort compressie, factor, venster) zijn zuiver op de afstelhelft gekozen.
+  De controlehelft is daardoor geen volledig onafhankelijke toets. Zie `docs/ai_logboek.md`.
 - Ruistest: bij het testspectrum is willekeurige ruis opgeteld (standaarddeviatie 1% en 3% van de hoogste piek)
   om te zien of een variant niet alleen op "schone" NIST-spectra werkt.
 
@@ -159,8 +166,9 @@ Gekozen instelling in `stofherkenner/voorbewerking.py`: **compressie = `{COMPRES
 | Kale absorbantie (uitgangssituatie) | {p(afstel_basis[0])} / {p(afstel_basis[1])} | {p(controle_basis[0])} / {p(controle_basis[1])} |
 | Gekozen instelling | {p(afstel_gekozen[0])} / {p(afstel_gekozen[1])} | {p(controle_gekozen[0])} / {p(controle_gekozen[1])} |
 
-De controlehelft is niet gebruikt bij het kiezen. Als de winst daar ongeveer even groot is als op de afstelhelft,
-is de verbetering echt en geen toeval of overfitting.
+De controlehelft is niet gebruikt bij het kiezen van de details. Als de winst daar ongeveer even groot is als op de
+afstelhelft, zijn die details niet "op toeval" afgesteld. (De grote keuze voor compressie + afgeleide is wel op alle
+data verkend; zie de kanttekening bij "Opzet".)
 
 ## Kanttekeningen
 

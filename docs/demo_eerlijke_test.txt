@@ -1,0 +1,83 @@
+Eerlijke test: het identieke spectrum doet niet mee. Gemaakt door scripts/demo_eerlijke_test.py
+
+=== 1-hexeen_gas_C592416_IR_0.jdx | juiste stof: 1-Hexene (592-41-6) | plek juiste stof: niet in top 5
+   #1  92.6%  1-Pentene                                     109-67-1     [gas] C 5 H 10
+   #2  91.4%  4-Methyl-1-heptene                            13151-05-8   [gas] C 8 H 16
+   #3  90.2%  1,8-Nonadiene                                 4900-30-5    [gas] C 9 H 16
+   #4  90.0%  6-Methyl-1-heptene                            5026-76-6    [gas] C 8 H 16
+   #5  90.0%  1-Nonene                                      124-11-8     [gas] C 9 H 18
+   WAARSCHUWING: De nummers 1 en 2 liggen heel dicht bij elkaar (verschil 1.2 procentpunt). Het systeem kan niet betrouwbaar tussen deze stoffen kiezen; het gaat vaak om isomeren of stoffen uit dezelfde reeks. Gebruik aanvullende gegevens (bijv. kookpunt, MS of NMR).
+
+=== aceton_gas_C67641_IR_0.jdx | juiste stof: Acetone (67-64-1) | plek juiste stof: 1
+   #1  95.8%  Acetone                                       67-64-1      [gas] C H3 C O C H3
+   #2  79.5%  t-Butyl peroxide                              110-05-4     [gas] C 8 H 18 O 2
+   #3  61.5%  FORMIC ACID                                   64-18-6      [gas] C H2 O2
+   #4  60.1%  Methoxyacetone                                5878-19-3    [gas] C 4 H 8 O 2
+   #5  55.8%  2-Butanone                                    78-93-3      [gas] C 4 H 8 O
+   (geen waarschuwing)
+
+=== aceton_gas_micrometer_C67641_IR_1.jdx | juiste stof: DIMETHYL KETONE (67-64-1) | plek juiste stof: 1
+   #1  91.2%  Acetone                                       67-64-1      [gas] C H3 C O C H3
+   #2  69.7%  t-Butyl peroxide                              110-05-4     [gas] C 8 H 18 O 2
+   #3  68.1%  FORMIC ACID                                   64-18-6      [gas] C H2 O2
+   #4  65.6%  1,4-Diacetoxy-2-butene                        18621-75-5   [gas] C 8 H 12 O 4
+   #5  65.4%  cis-1,4-Diacetoxy-2-butene                    25260-60-0   [gas] C 8 H 12 O 4
+   (geen waarschuwing)
+
+=== azijnzuur_oplossing_C64197_IR_2.jdx | juiste stof: ACETIC ACID (64-19-7) | plek juiste stof: niet in top 5
+   #1  56.3%  TRICHLOROACRYLIC ACID                         2257-35-4    [oplossing] C3 H Cl3 O2
+   #2  55.1%  3,5,5-Trimethylhexanoic acid                  3302-10-1    [oplossing] C9 H18 O2
+   #3  54.6%  Acetylpyrazine                                22047-25-2   [gas] C 6 H 6 N 2 O
+   #4  53.8%  PIMELIC ACID                                  111-16-0     [vast] C7 H12 O4
+   #5  53.6%  Stearic acid                                  57-11-4      [oplossing] C18 H36 O2
+   WAARSCHUWING: De beste score is laag (56.3%). Waarschijnlijk staat deze stof niet in de database, is het een mengsel, of is het spectrum op een andere manier gemeten dan de referentie (bijv. ATR of vaste stof tegenover een gasfase-referentie).
+   WAARSCHUWING: De nummers 1 en 2 liggen heel dicht bij elkaar (verschil 1.2 procentpunt). Het systeem kan niet betrouwbaar tussen deze stoffen kiezen; het gaat vaak om isomeren of stoffen uit dezelfde reeks. Gebruik aanvullende gegevens (bijv. kookpunt, MS of NMR).
+
+=== benzonitril_vloeistof_micrometer_C100470_IR_1.jdx | juiste stof: BENZONITRILE (100-47-0) | plek juiste stof: 3
+   #1  67.0%  AZOXYBENZENE                                  495-48-7     [oplossing] C12 H10 N2 O
+   #2  65.7%  Benzene, 1,1'-(1,3-butadiyne-1,4-diyl)bis-    886-66-8     [gas] C 16 H 10
+   #3  62.7%  Benzonitrile                                  100-47-0     [gas] C 7 H 5 N
+   #4  61.2%  1,4-NAPHTHALENEDINITRILE, 1,2,3,4-TETRAHYDRO- 25679-87-2   [vast] C18 H14 N2
+   #5  60.8%  N-Sulfinylaniline                             1122-83-4    [oplossing] C6 H5 N O S
+   WAARSCHUWING: De nummers 1 en 2 liggen heel dicht bij elkaar (verschil 1.2 procentpunt). Het systeem kan niet betrouwbaar tussen deze stoffen kiezen; het gaat vaak om isomeren of stoffen uit dezelfde reeks. Gebruik aanvullende gegevens (bijv. kookpunt, MS of NMR).
+
+=== butylamine_vloeistof_C109739_IR_2.jdx | juiste stof: BUTANAMINE (109-73-9) | plek juiste stof: niet in top 5
+   #1  80.5%  1,5-Pentanediamine                            462-94-2     [vloeistof] C5 H14 N2
+   #2  74.8%  N-DODECYL AMINE                               124-22-1     [vloeistof] C12 H27 N
+   #3  74.6%  Hexylamine, 1,5-dimethyl-                     543-82-8     [vloeistof] C8 H19 N
+   #4  74.6%  1,4-BUTANE DIAMINE                            110-60-1     [onbekend] C4 H12 N2
+   #5  72.0%  DUOMEEN O                                     4253-76-3    [onbekend] C21 H46 N2
+   (geen waarschuwing)
+
+=== ethanol_gas_C64175_IR_0.jdx | juiste stof: Ethanol (64-17-5) | plek juiste stof: 1
+   #1  90.9%  Ethanol                                       64-17-5      [gas] C2 H5 O H
+   #2  75.8%  1,2-Ethanediol                                107-21-1     [gas] C 2 H 6 O 2
+   #3  73.1%  1-Propanol                                    71-23-8      [gas] C 3 H 8 O
+   #4  66.8%  1-Butanol                                     71-36-3      [gas] C 4 H 10 O
+   #5  66.3%  Cyclobutanemethanol                           4415-82-1    [gas] C 5 H 10 O
+   (geen waarschuwing)
+
+=== ethanol_oplossing_C64175_IR_3.jdx | juiste stof: ETHANOL (64-17-5) | plek juiste stof: 3
+   #1  71.0%  1,2-ETHANEDIOL                                107-21-1     [vloeistof] C2 H6 O2
+   #2  62.3%  N-METHYL-DIETHANOL AMINE                      105-59-9     [vloeistof] C5 H13 N O2
+   #3  59.5%  ETHYL ALCOHOL                                 64-17-5      [gas] C2 H6 O
+   #4  57.2%  MANNITOL                                      69-65-8      [vast] C6 H14 O6
+   #5  56.1%  TRIETHANOLAMINE                               102-71-6     [vloeistof] C6 H15 N O3
+   (geen waarschuwing)
+
+=== ethylacetaat_gas_C141786_IR_0.jdx | juiste stof: Ethyl Acetate (141-78-6) | plek juiste stof: 1
+   #1  96.0%  Ethyl Acetate                                 141-78-6     [gas] C H3 C O2 C H2 C H3
+   #2  88.1%  Acetic acid, 3-chlorobutyl ester              2203-36-3    [gas] C 6 H 11 Cl O 2
+   #3  85.3%  1,3-Diacetoxypropane                          628-66-0     [gas] C 7 H 12 O 4
+   #4  85.2%  Acetic acid, butyl ester                      123-86-4     [gas] C 6 H 12 O 2
+   #5  84.2%  n-Propyl acetate                              109-60-4     [gas] C 5 H 10 O 2
+   (geen waarschuwing)
+
+=== tolueen_vloeistof_C108883_IR_2.jdx | juiste stof: TOLUENE (108-88-3) | plek juiste stof: 1
+   #1  80.7%  BENZENE, METHYL-                              108-88-3     [oplossing] C7 H8
+   #2  74.5%  BENZENE, PROPYL-                              103-65-1     [vloeistof] C9 H12
+   #3  73.7%  BENZENE, BUTYL-                               104-51-8     [vloeistof] C10 H14
+   #4  70.8%  N-PENTYL BENZENE                              538-68-1     [vloeistof] C11 H16
+   #5  68.1%  ETHYL BENZENE                                 100-41-4     [vloeistof] C8 H10
+   (geen waarschuwing)
+

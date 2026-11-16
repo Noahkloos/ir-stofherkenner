@@ -48,9 +48,9 @@ BLOKGROOTTE = 256          # aantal vraagspectra dat we tegelijk doorrekenen (ge
 def helft_van_stof(nist_id: str) -> int:
     """Verdeel de stoffen vast in twee helften: 0 = afstelhelft, 1 = controlehelft.
 
-    De instellingen van de voorbewerking zijn gekozen op de afstelhelft
+    De details van de voorbewerking zijn gekozen op de afstelhelft
     (scripts/vergelijk_voorbewerking.py). De controlehelft is daarbij niet
-    gebruikt en geeft dus een eerlijk beeld. De verdeling hangt alleen af van
+    gebruikt (wel bij de eerste verkenning, zie docs/ai_logboek.md). De verdeling hangt alleen af van
     het NIST-ID (via een controlegetal), dus is elke keer hetzelfde.
     """
     return zlib.crc32(nist_id.encode()) % 2
@@ -212,7 +212,8 @@ def main() -> int:
     # Controle op "afstellen op de testset": cijfers apart voor afstel- en controlehelft
     helft = np.array([helft_van_stof(s) for s in meta["nist_id"].to_numpy()[vraag_indexen]])
     helft_regels = []
-    for nummer, naam in ((0, "afstelhelft (gebruikt om de voorbewerking te kiezen)"), (1, "controlehelft (niet gebruikt bij het kiezen)")):
+    for nummer, naam in ((0, "afstelhelft (details van de voorbewerking hierop gekozen)"),
+                         (1, "controlehelft (niet gebruikt voor de details; wel in de eerste verkenning)")):
         m = helft == nummer
         helft_regels.append(f"| {naam} | {int(m.sum())} | {procent(goed[m].mean())} | {procent((r['rang'][m] <= 5).mean())} |")
 
@@ -349,15 +350,18 @@ dat scheelt ten opzichte van de kale absorbantie, staat in [vergelijking_voorbew
 
 ### Controle: is er niet "afgesteld op de testset"?
 
-De instellingen van de voorbewerking zijn gekozen op de ene helft van de stoffen (afstelhelft). De andere helft
-(controlehelft) is daarbij niet gebruikt. Resultaat van `{beste_methode}` per helft:
+Eerlijke kanttekening: het *idee* om compressie en een afgeleide te gebruiken kwam uit een eerste verkenning op de
+hele testset (zie `docs/ai_logboek.md`). Daarna is de stoffenlijst in twee vaste helften gesplitst en zijn de
+*details* (soort compressie, logfactor, venster van de afgeleide) alleen op de afstelhelft gekozen. De controlehelft
+is dus niet helemaal "onaangeroerd". Resultaat van `{beste_methode}` per helft:
 
 | Deel van de testset | Aantal spectra | Top-1 | Top-5 |
 |---|---|---|---|
 {chr(10).join(helft_regels)}
 
-De cijfers van de controlehelft zijn het eerlijkst; als die duidelijk lager zouden zijn dan die van de afstelhelft,
-was er sprake van overfitting.
+De cijfers van de controlehelft zijn het eerlijkst. Liggen ze duidelijk lager dan die van de afstelhelft, dan zijn de
+details te veel op de afstelhelft afgesteld (overfitting). Een klein verschil wijst erop dat de keuze ook voor nieuwe
+stoffen werkt, maar omdat de grote ontwerpkeuze op alle data is verkend, is dit geen volledig onafhankelijke toets.
 
 ## Invloed van de fase (methode: {beste_methode})
 

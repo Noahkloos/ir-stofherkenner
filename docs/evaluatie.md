@@ -27,9 +27,9 @@ De cijfers hieronder zijn daardoor eerder te voorzichtig dan te rooskleurig.
 
 | Methode | Geteste spectra | Top-1 | Top-5 | Top-1 als er een ander spectrum in dezelfde fase is | Top-1 als de stof alleen in een andere fase voorkomt | Zoektijd (mediaan) | Zoektijd (max) |
 |---|---|---|---|---|---|---|---|
-| cosinus | 3934 | **52.9%** | **69.5%** | 85.5% | 40.7% | 22.5 ms | 28.2 ms |
-| pearson | 3934 | **52.9%** | **69.5%** | 85.5% | 40.7% | 34.8 ms | 41.0 ms |
-| euclidisch | 3934 | **49.4%** | **65.0%** | 82.9% | 36.9% | 22.9 ms | 28.4 ms |
+| cosinus | 3934 | **52.9%** | **69.5%** | 85.5% | 40.7% | 22.5 ms | 28.1 ms |
+| pearson | 3934 | **52.9%** | **69.5%** | 85.5% | 40.7% | 35.2 ms | 43.2 ms |
+| euclidisch | 3934 | **49.4%** | **65.0%** | 82.9% | 36.9% | 24.3 ms | 31.1 ms |
 
 De zoektijd is gemeten over 50 zoekopdrachten door de hele bibliotheek (18016 spectra) op de laptop waarop
 deze evaluatie is gedraaid, inclusief het maken van de top 5. De eis was: binnen 1 seconde (1000 ms).
@@ -42,16 +42,19 @@ dat scheelt ten opzichte van de kale absorbantie, staat in [vergelijking_voorbew
 
 ### Controle: is er niet "afgesteld op de testset"?
 
-De instellingen van de voorbewerking zijn gekozen op de ene helft van de stoffen (afstelhelft). De andere helft
-(controlehelft) is daarbij niet gebruikt. Resultaat van `cosinus` per helft:
+Eerlijke kanttekening: het *idee* om compressie en een afgeleide te gebruiken kwam uit een eerste verkenning op de
+hele testset (zie `docs/ai_logboek.md`). Daarna is de stoffenlijst in twee vaste helften gesplitst en zijn de
+*details* (soort compressie, logfactor, venster van de afgeleide) alleen op de afstelhelft gekozen. De controlehelft
+is dus niet helemaal "onaangeroerd". Resultaat van `cosinus` per helft:
 
 | Deel van de testset | Aantal spectra | Top-1 | Top-5 |
 |---|---|---|---|
-| afstelhelft (gebruikt om de voorbewerking te kiezen) | 1882 | 54.0% | 69.7% |
-| controlehelft (niet gebruikt bij het kiezen) | 2052 | 51.9% | 69.3% |
+| afstelhelft (details van de voorbewerking hierop gekozen) | 1882 | 54.0% | 69.7% |
+| controlehelft (niet gebruikt voor de details; wel in de eerste verkenning) | 2052 | 51.9% | 69.3% |
 
-De cijfers van de controlehelft zijn het eerlijkst; als die duidelijk lager zouden zijn dan die van de afstelhelft,
-was er sprake van overfitting.
+De cijfers van de controlehelft zijn het eerlijkst. Liggen ze duidelijk lager dan die van de afstelhelft, dan zijn de
+details te veel op de afstelhelft afgesteld (overfitting). Een klein verschil wijst erop dat de keuze ook voor nieuwe
+stoffen werkt, maar omdat de grote ontwerpkeuze op alle data is verkend, is dit geen volledig onafhankelijke toets.
 
 ## Invloed van de fase (methode: cosinus)
 
@@ -154,4 +157,4 @@ laborant niet.
 - Stoffen die niet in de bibliotheek staan kan de app per definitie niet vinden.
 - De fase-indeling komt uit het vrije tekstveld `##STATE` van de bestanden en is automatisch in vijf groepen ingedeeld.
 
-Totale rekentijd van deze evaluatie: 46 s.
+Totale rekentijd van deze evaluatie: 32 s.
