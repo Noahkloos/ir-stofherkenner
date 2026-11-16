@@ -181,3 +181,22 @@ def test_zoeken_in_hele_bibliotheek_duurt_korter_dan_1_seconde(bibliotheek, voor
     print(f"\n[meting] zoeken ({methode}) door {len(bibliotheek)} spectra: {duur * 1000:.0f} ms")
     assert duur < 1.0
     assert top.iloc[0]["cas"] == "108-88-3"
+
+
+# --- Klikken op pieken (de vertaling van een klik naar een piek) ---------------
+
+def test_pieken_uit_selectie():
+    from stofherkenner.grafieken import pieken_uit_selectie
+    from stofherkenner.piekdetectie import Piek
+    pieken = [Piek(1742.0, 1.0, 1.0, 50.0), Piek(1210.0, 0.5, 0.5, 40.0)]
+    selectie = {"selection": {"points": [
+        {"curve_number": 1, "x": 1742.0},      # klik op een rode stip
+        {"curve_number": 0, "x": 1210.0},      # klik op de lijn: telt niet
+        {"curve_number": 1, "x": 999.0},       # oude selectie van een ander bestand: bestaat niet meer
+        {"curve_number": 1, "x": 1742.0},      # dubbel
+    ]}}
+    assert pieken_uit_selectie(selectie, pieken) == [1742.0]
+    assert pieken_uit_selectie(None, pieken) == []
+    assert pieken_uit_selectie({"selection": {"points": []}}, pieken) == []
+    assert pieken_uit_selectie({"iets": "anders"}, pieken) == []
+    assert pieken_uit_selectie({"selection": {"points": [{"curve_number": 1, "x": "onzin"}]}}, pieken) == []

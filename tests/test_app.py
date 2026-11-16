@@ -29,6 +29,18 @@ def kies_voorbeeld(app: AppTest, bestandsnaam: str) -> AppTest:
     return app
 
 
+def tabel_met_kolom(app: AppTest, kolom: str):
+    """Zoek de tabel (dataframe) op de pagina die een bepaalde kolom heeft."""
+    for df in app.dataframe:
+        if kolom in list(df.value.columns):
+            return df.value
+    raise AssertionError(f"geen tabel met kolom {kolom!r} gevonden")
+
+
+def top5(app: AppTest):
+    return tabel_met_kolom(app, "Overeenkomst")
+
+
 def alle_tekst(app: AppTest) -> str:
     """Alle zichtbare tekst op de pagina, om in te zoeken."""
     delen = []
@@ -56,12 +68,12 @@ def test_voorbeeld_toont_grafiek_top5_en_functionele_groepen(bibliotheek):
     assert "Spectrum: Acetone" in tekst
     assert "pieken gedetecteerd" in tekst
     assert "Top 5 meest waarschijnlijke stoffen" in tekst
-    assert "Visuele vergelijking met een referentiespectrum" in tekst
+    assert "Overlay met de voorspelde stoffen" in tekst
     assert "C=O (keton of aldehyde)" in tekst and "piek bij 17" in tekst      # reden met piekpositie
     # twee grafieken: spectrum + overlay
     assert len(app.get("plotly_chart")) == 2
     # de top-5-tabel heeft vijf rijen met de gevraagde kolommen en Acetone bovenaan
-    tabel = app.dataframe[0].value
+    tabel = top5(app)
     assert list(tabel.columns) == ["#", "Naam", "CAS-nummer", "Molecuulformule", "Fase referentie", "Overeenkomst"]
     assert len(tabel) == 5
     assert tabel.iloc[0]["Naam"] == "Acetone" and tabel.iloc[0]["CAS-nummer"] == "67-64-1"
@@ -82,13 +94,59 @@ def test_grafiek_heeft_golfgetal_van_hoog_naar_laag_en_gemarkeerde_pieken(biblio
 
 def test_eerlijke_test_geeft_geen_100_procent(bibliotheek):
     app = kies_voorbeeld(start_app(), ACETON)
-    assert app.dataframe[0].value.iloc[0]["Overeenkomst"] > 99.9
+    assert top5(app).iloc[0]["Overeenkomst"] > 99.9
     assert "staat zelf in de bibliotheek" in alle_tekst(app)
     next(c for c in app.checkbox if "Eerlijke test" in c.label).check().run()
     assert not app.exception
-    tabel = app.dataframe[0].value
+    tabel = top5(app)
     assert tabel.iloc[0]["Overeenkomst"] < 99.95
     assert tabel.iloc[0]["CAS-nummer"] == "67-64-1"          # aceton wordt ook via een andere meting herkend
+
+
+def test_overlay_kan_alle_top5_stoffen_tegelijk_tonen(bibliotheek):
+    import json
+    app = kies_voorbeeld(start_app(), ACETON)
+    keuze = next(m for m in app.multiselect if "Referenties" in m.label)
+    assert len(keuze.value) == 1 and keuze.value[0].startswith("#1 ")         # standaard: alleen nummer 1
+    overlay = json.loads(app.get("plotly_chart")[1].proto.spec)
+    assert len(overlay["data"]) == 2                                          # 1 referentie + geüpload spectrum
+    keuze.set_value(keuze.options).run()                                      # alle vijf aanzetten
+    assert not app.exception
+    overlay = json.loads(app.get("plotly_chart")[1].proto.spec)
+    namen = [spoor["name"] for spoor in overlay["data"]]
+    assert len(namen) == 6 and namen[-1] == "Geüpload spectrum"
+    assert all(n.startswith(f"#{i + 1} ") for i, n in enumerate(namen[:5]))
+    assert len({spoor["line"]["color"] for spoor in overlay["data"]}) == 6    # zes verschillende kleuren
+    keuze.set_value([]).run()                                                 # niets gekozen: geen crash
+    assert not app.exception
+    assert len(json.loads(app.get("plotly_chart")[1].proto.spec)["data"]) == 1
+
+
+def test_piekentabel_met_mogelijke_bindingen(bibliotheek):
+    app = kies_voorbeeld(start_app(), "ethylacetaat_gas_C141786_IR_0.jdx")
+    tabel = next(t.value for t in app.table if "Mogelijke binding(en)" in list(t.value.columns))
+    golfgetallen = [int(g) for g in tabel.index]
+    assert golfgetallen == sorted(golfgetallen, reverse=True)
+    rij = tabel.loc[[i for i in tabel.index if int(i) == 1766][0]]
+    assert "Ester" in rij["Volgens de regels"] and "C=O" in rij["Mogelijke binding(en)"]
+    assert "Klik op een rode stip" in alle_tekst(app)                         # uitleg hoe je klikt
+
+
+def test_spectrumgrafiek_is_klikbaar(bibliotheek):
+    """De spectrumgrafiek reageert op klikken (selectie van punten). Het klikken zelf is in de browser getest."""
+    import json
+    app = kies_voorbeeld(start_app(), ACETON)
+    grafiek = app.get("plotly_chart")[0]
+    assert "points" in list(grafiek.proto.selection_mode) or grafiek.proto.selection_mode
+    figuur = json.loads(grafiek.proto.spec)
+    assert figuur["layout"]["clickmode"] == "event+select"
+
+
+def test_windows7_stijl_wordt_geladen():
+    app = start_app()
+    stijl = [m.value for m in app.markdown if "<style>" in str(m.value)]
+    assert stijl and ".w7-statusbalk" in stijl[0]
+    assert any("w7-statusbalk" in str(m.value) and "Gereed" in str(m.value) for m in app.markdown)
 
 
 def upload(app: AppTest, naam: str, inhoud: bytes) -> AppTest:
@@ -127,7 +185,7 @@ def test_geldige_upload_toont_direct_de_grafiek(bibliotheek):
     assert not app.exception and not app.error
     assert "Spectrum: TOLUENE" in alle_tekst(app)
     assert len(app.get("plotly_chart")) == 2
-    assert app.dataframe[0].value.iloc[0]["CAS-nummer"] == "108-88-3"
+    assert top5(app).iloc[0]["CAS-nummer"] == "108-88-3"
     assert "Aromaat (benzeenring)" in alle_tekst(app)
 
 

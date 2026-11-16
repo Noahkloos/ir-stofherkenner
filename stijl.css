@@ -1,0 +1,188 @@
+/* =====================================================================
+   IR-Stofherkenner - opmaak in de stijl van Windows 7 / klassieke IR-software
+   ---------------------------------------------------------------------
+   - Alleen lettertypen die al op de computer staan (Segoe UI, Tahoma).
+     Er wordt niets van internet geladen.
+   - Selectors op data-testid en op de klassen "st-key-..." die Streamlit
+     zelf aanmaakt voor containers met een key.
+   - Kleuren: grijs vensteroppervlak (#f0f0f0), lichtblauwe verlopen zoals
+     de titelbalken en werkbalken van Windows 7, witte "documentvlakken".
+   ===================================================================== */
+
+:root {
+  --w7-venster: #f0f0f0;
+  --w7-tekst: #1e1e1e;
+  --w7-rand: #a9b8cb;
+  --w7-rand-donker: #7f93ad;
+  --w7-kop-boven: #fbfdff;
+  --w7-kop-onder: #dce7f5;
+  --w7-titel-boven: #e6f0fb;
+  --w7-titel-onder: #bfd4ee;
+  --w7-blauw: #1e3f73;
+  --w7-selectie: #3399ff;
+  --w7-lettertype: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ---------- Algemeen: lettertype, achtergrond en tekstkleur samen ---------- */
+/* Pictogrammen (stIconMaterial) houden hun eigen pictogramlettertype, anders zie je woorden als "upload" */
+html, body, [data-testid="stApp"], [data-testid="stApp"] *:not([data-testid="stIconMaterial"]) {
+  font-family: var(--w7-lettertype);
+}
+[data-testid="stApp"] {
+  background-color: var(--w7-venster);
+  color: var(--w7-tekst);
+}
+[data-testid="stHeader"] {
+  background: transparent;
+}
+[data-testid="stMainBlockContainer"] {
+  padding-top: 2.2rem;
+  max-width: 1400px;
+}
+
+/* ---------- Titelbalk (de h1 bovenaan) ---------- */
+[data-testid="stMain"] h1 {
+  background: linear-gradient(to bottom, var(--w7-titel-boven) 0%, #d5e4f6 45%, var(--w7-titel-onder) 100%);
+  border: 1px solid var(--w7-rand-donker);
+  border-radius: 6px;
+  box-shadow: inset 0 1px 0 #ffffff, 0 1px 3px rgba(0, 0, 0, 0.18);
+  color: #10233f;
+  font-size: 1.35rem;
+  font-weight: 600;
+  padding: 0.45rem 0.9rem !important;
+  margin-bottom: 0.25rem;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+.w7-ondertitel {
+  color: #3b4a5e;
+  font-size: 0.92rem;
+  margin: 0 0 0.4rem 0.2rem;
+}
+
+/* ---------- Groepvakken (containers met key "groep_...") ---------- */
+[class*="st-key-groep_"] {
+  background-color: #ffffff;
+  border: 1px solid var(--w7-rand) !important;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  color: var(--w7-tekst);
+}
+/* Kop van elk groepvak: een werkbalk-achtige strook */
+[class*="st-key-groep_"] h3 {
+  background: linear-gradient(to bottom, var(--w7-kop-boven) 0%, #eef4fb 50%, var(--w7-kop-onder) 100%);
+  border: 1px solid #c3d2e4;
+  border-radius: 3px;
+  color: var(--w7-blauw);
+  font-size: 1.0rem !important;
+  font-weight: 600;
+  padding: 0.3rem 0.65rem !important;
+  margin: 0 0 0.2rem 0;
+}
+[class*="st-key-groep_"] h3 a { display: none; }   /* geen ankerlinkje naast de kop */
+
+/* ---------- Zijbalk: navigatievenster zoals in Windows Verkenner ---------- */
+[data-testid="stSidebar"] {
+  background: linear-gradient(to bottom, #f7faff 0%, #e4edf8 100%);
+  border-right: 1px solid var(--w7-rand-donker);
+}
+[data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3 {
+  color: var(--w7-blauw);
+  font-size: 1.0rem !important;
+  font-weight: 600;
+  border-bottom: 1px solid #c3d2e4;
+  padding-bottom: 0.2rem !important;
+}
+
+/* ---------- Knoppen: grijs verloop met rand, blauw bij aanwijzen ---------- */
+[data-testid="stApp"] button[kind="secondary"],
+[data-testid="stApp"] [data-testid="stBaseButton-secondary"] {
+  background: linear-gradient(to bottom, #f2f2f2 0%, #ebebeb 50%, #dddddd 51%, #cfcfcf 100%);
+  border: 1px solid #707070;
+  border-radius: 3px;
+  color: #000000;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+}
+[data-testid="stApp"] button[kind="secondary"]:hover,
+[data-testid="stApp"] [data-testid="stBaseButton-secondary"]:hover {
+  background: linear-gradient(to bottom, #eaf6fd 0%, #d9f0fc 50%, #bee6fd 51%, #a7d9f5 100%);
+  border-color: #3c7fb1;
+  color: #000000;
+}
+
+/* ---------- Invoervelden: wit met een dunne rand ---------- */
+[data-testid="stApp"] [data-baseweb="select"] > div,
+[data-testid="stApp"] [data-baseweb="input"] > div {
+  background-color: #ffffff;
+  border: 1px solid #abadb3;
+  border-radius: 2px;
+  color: #000000;
+}
+[data-testid="stFileUploaderDropzone"] {
+  background-color: #ffffff;
+  border: 1px dashed #8e9fb5;
+  border-radius: 3px;
+  color: var(--w7-tekst);
+}
+
+/* ---------- Grafieken en tabellen: wit documentvlak met kader ---------- */
+[data-testid="stPlotlyChart"] {
+  border: 1px solid #8c8c8c;
+  background-color: #ffffff;
+  box-shadow: inset 1px 1px 0 #e5e5e5;
+}
+[data-testid="stDataFrame"] {
+  border: 1px solid #c3c3c3;
+}
+/* Statische tabellen (piekentabel): rasterlijnen en kopregel zoals een Windows-lijstweergave */
+[data-testid="stTable"] table {
+  border-collapse: collapse;
+  background-color: #ffffff;
+  font-size: 0.88rem;
+}
+[data-testid="stTable"] th {
+  background: linear-gradient(to bottom, #ffffff 0%, #f1f4f8 50%, #e3e9f1 100%);
+  border: 1px solid #c5cdd8;
+  color: #1e1e1e;
+  font-weight: 600;
+}
+[data-testid="stTable"] td {
+  border: 1px solid #dde3ea;
+  vertical-align: top;
+}
+
+/* ---------- Uitklapblokken ---------- */
+[data-testid="stExpander"] details {
+  background-color: #ffffff;
+  border: 1px solid var(--w7-rand);
+  border-radius: 3px;
+}
+[data-testid="stExpander"] summary {
+  background: linear-gradient(to bottom, var(--w7-kop-boven), var(--w7-kop-onder));
+  color: var(--w7-blauw);
+  font-weight: 600;
+}
+
+/* ---------- Statusbalk onderaan ---------- */
+.w7-statusbalk {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  background: linear-gradient(to bottom, #f4f6f9 0%, #e1e7ef 100%);
+  border: 1px solid #b5bfcc;
+  border-radius: 2px;
+  padding: 2px;
+  margin-top: 0.5rem;
+  font-size: 0.82rem;
+  color: #1e1e1e;
+}
+.w7-statusbalk span {
+  background-color: #f9fafb;
+  border: 1px solid #c9d1dc;
+  border-top-color: #a3abb7;
+  border-left-color: #a3abb7;
+  padding: 1px 8px;
+  white-space: nowrap;
+}
+.w7-statusbalk span.w7-rek {
+  flex: 1 1 auto;
+}

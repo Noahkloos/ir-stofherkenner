@@ -13,5 +13,9 @@ headless = true
 gatherUsageStats = false
 
 [theme]
+# Kleuren in de stijl van Windows 7 (de rest van de opmaak staat in stijl.css)
 base = "light"
-primaryColor = "#1f4e79"
+primaryColor = "#3399ff"
+backgroundColor = "#f0f0f0"
+secondaryBackgroundColor = "#e4ecf6"
+textColor = "#1e1e1e"
