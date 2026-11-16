@@ -53,6 +53,14 @@ Verder in de browser gecontroleerd:
 - **Selectie opheffen:** een enkele klik op een lege plek heft de selectie níét op; een **dubbelklik** wel. De tekst
   in de app zegt dat nu ook.
 - **Op een echte tablet (aanraken) is klikken niet getest**; daarvoor is er de piekentabel onderaan met alle pieken.
+- **Structuurformules** (tolueen, met internet): 5 van 5 structuren getoond, ook ná het aanklikken van een piek
+  (eerst ging dat mis: de tweede keer, uit de lokale opslag, kwam er "geen structuur"; oorzaak gevonden en opgelost,
+  zie `docs/ai_logboek.md`). Op tabletformaat (768 × 1024): vijf kaartjes van 126 px naast elkaar, binnen het scherm,
+  geen horizontaal scrollen van de pagina; de structuurtekening is daar klein (94 px breed).
+- **Piekinformatie** (tolueen, piek 734 cm⁻¹): "sterk 0.93 · scherp 19 cm⁻¹ · Aromaat (benzeenring): C–H-buiging uit
+  het vlak, zekerheid hoog · γ(C–H) – aromaat (substitutiepatroon)". Op tabletformaat scrolt de brede piektabel
+  binnen zijn eigen kader, niet de hele pagina.
+- **Titel** zonder emoji: "IR-Stofherkenner".
 - **Overlay**: met alle vijf stoffen gekozen toont de grafiek zes lijnen (vijf referenties en het geüploade spectrum),
   elk in een eigen kleur.
 - **Pictogrammen**: de pictogrammen (bijv. op de uploadknop) worden als pictogram getoond, niet als tekst.

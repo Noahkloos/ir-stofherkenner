@@ -71,6 +71,9 @@ Daarom:
     zonder die tien bestanden werken de tests met echte spectra niet.
   - Het gebruik is **lokaal en voor onderwijs**, niet commercieel.
   - Bronvermelding staat in de README, in de zijbalk van de app en in de voorbeeldmap.
+  - De **structuurformules** komen ook uit het NIST Chemistry WebBook (2D-structuurbestanden, © U.S. Secretary of
+    Commerce). De app haalt ze één voor één op, alleen voor de vijf getoonde stoffen, met een korte pauze tussen de
+    verzoeken; er wordt niets in bulk gedownload. Onder de structuren staat de bronvermelding.
 - **Open vraag (zelf beoordelen):** is het ophalen van data die de verzamelaar bewust heeft teruggetrokken ethisch
   verantwoord, ook al gaat het om publiek raadpleegbare NIST-data en om onderwijsgebruik? Overleg dit eventueel met
   de docent.
@@ -91,8 +94,21 @@ Omdat het systeem **niet getraind** is, is er geen "zwarte doos": elke stap is e
 
 ## 6. Privacy
 
-De app slaat geüploade spectra niet op en stuurt niets naar internet: alles draait lokaal op de eigen computer.
-Streamlit-gebruiksstatistieken staan uit (`.streamlit/config.toml`).
+De app slaat geüploade spectra niet op. De analyse (inlezen, pieken, vergelijken, functionele groepen) draait
+volledig lokaal op de eigen computer. Streamlit-gebruiksstatistieken staan uit (`.streamlit/config.toml`).
+
+**Eén uitzondering: de structuurformules.** Op verzoek van de student toont de app bij de top 5 de structuurformule
+van elke stof. Die staat niet in de gedownloade spectra; de app haalt hem op bij het NIST Chemistry WebBook.
+
+- Wat wordt er verstuurd? Alleen het **NIST-nummer** van de stof uit de top 5 (bijv. `C67641` voor aceton), nooit
+  het geüploade spectrum, de bestandsnaam of andere gegevens van de gebruiker.
+- Toch zegt dat iets: wie het verkeer ziet, kan afleiden welke stoffen er in de top 5 stonden en dus ongeveer wat
+  er gemeten is. Voor gevoelige monsters kan dat ongewenst zijn.
+- Daarom staat er in de zijbalk een schakelaar **"Structuurformules ophalen bij NIST (internet)"**. Uitzetten =
+  de app gaat niet meer naar internet en toont alleen structuren die al eerder zijn opgehaald.
+- Opgehaalde structuren worden lokaal bewaard (`data/structuren/`), zodat dezelfde stof niet opnieuw wordt
+  opgevraagd. Die map staat niet in git (NIST-data, zie §4).
+- *[CONCEPT – zelf beoordelen]* Is "standaard aan" de goede keuze, of zou "standaard uit" verantwoorder zijn?
 
 ## Richtvragen voor je eigen reflectie (LU3)
 

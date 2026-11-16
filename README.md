@@ -5,12 +5,13 @@ Een webapp waarin een laborant een **IR-spectrum (JCAMP-DX)** uploadt. De app:
 1. controleert het bestand streng en leest het in;
 2. toont direct een grafiek van het spectrum met de gevonden pieken gemarkeerd;
 3. vergelijkt het spectrum met ruim 18.000 referentiespectra uit het NIST Chemistry WebBook;
-4. toont een **top 5** van meest waarschijnlijke stoffen (naam, CAS-nummer, molecuulformule, overeenkomst 0–100%);
+4. toont een **top 5** van meest waarschijnlijke stoffen (naam, CAS-nummer, molecuulformule, overeenkomst 0–100%),
+   met de **structuurformule** van elke stof;
 5. legt een of meer stoffen uit de top 5 over het geüploade spectrum heen (standaard nummer 1);
 6. legt uit welke **functionele groepen** waarschijnlijk aanwezig zijn, met de piek als reden
    (bijv. "C=O-rek: piek bij 1742 cm⁻¹");
-7. toont na een **klik op een rode piekstip** een tabel met de mogelijke binding(en) van die piek; een piekentabel
-   onderaan bevat alle pieken.
+7. toont na een **klik op een rode piekmarkering** de piekinformatie: intensiteit, bandvorm en de toewijzing in
+   IR-notatie (bijv. "ν(C=O) – keton of aldehyde"); een piektabel onderaan bevat alle pieken.
 
 De opmaak is in de stijl van klassieke IR-software / Windows 7 (titelbalk, groepvakken, statusbalk; zie `stijl.css`).
 
@@ -42,6 +43,7 @@ Er wordt **geen model getraind**. De app gebruikt klassieke (symbolische) AI:
 | Stof zoeken | similarity search: cosinusgelijkenis op logaritme + afgeleide | `stofherkenner/matching.py` |
 | Uitleg | expertsysteem met ALS-DAN-regels voor 8 functionele groepen | `stofherkenner/functionele_groepen.py` |
 | Binding per piek | opzoeken in een correlatietabel (golfgetalgebieden) | `stofherkenner/piek_toewijzing.py` |
+| Structuurformules | 2D-structuur van NIST (op NIST-nummer), lokaal bewaard, getekend met RDKit | `stofherkenner/structuren.py` |
 | Scherm | Streamlit + Plotly, opmaak in Windows 7-stijl | `app.py`, `stofherkenner/grafieken.py`, `stijl.css` |
 
 Meer: [docs/ontwerp.md](docs/ontwerp.md) (architectuur en ontwerpkeuzes).
@@ -88,12 +90,17 @@ draaien. (Opnieuw uitvoeren vanuit Jupyter is in de omgeving van de AI-assistent
 - Ongeveer de helft van de referentiespectra is in **gasfase** gemeten; een ATR-, vloeistof- of vaste-stofspectrum
   wijkt daarvan af.
 - Alleen stoffen die in de database staan kunnen gevonden worden; **mengsels** worden niet herkend.
+- **Structuurformules vragen internet.** De app haalt ze bij het NIST WebBook op (alleen het NIST-nummer van de stof
+  wordt verstuurd) en bewaart ze in `data/structuren/`. Zonder internet zie je alleen eerder opgehaalde structuren.
+  Uitzetten kan in de zijbalk. Zie [docs/ethiek_en_verantwoord_gebruik.md](docs/ethiek_en_verantwoord_gebruik.md) §6.
 
 ## Bronvermelding
 
 - **Referentiespectra:** NIST Chemistry WebBook, NIST Standard Reference Database Number 69, eds. P.J. Linstrom and
   W.G. Mallard, National Institute of Standards and Technology, Gaithersburg MD, <https://webbook.nist.gov/>.
   © U.S. Secretary of Commerce on behalf of the United States of America. Alle rechten voorbehouden.
+- **Structuurformules:** 2D-structuurbestanden uit hetzelfde NIST Chemistry WebBook, getekend met RDKit
+  (<https://www.rdkit.org>).
 - **Verzameling:** NistChemData van Ivan Chernyshov (nu <https://github.com/muCommons/NistChemData>). Dit is een
   **onofficiële** verzameling, geen product van NIST. De oorspronkelijke repository heeft de databestanden in mei
   2026 verwijderd; `scripts/download_database.py` haalt het oude archief uit een fork en controleert het met een

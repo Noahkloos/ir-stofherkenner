@@ -5,6 +5,8 @@ volledig in [`demo_eerlijke_test.txt`](demo_eerlijke_test.txt) (gemaakt met `scr
 Controleer vlak voor de presentatie of je dezelfde uitkomsten ziet.
 
 **Voorbereiding:** `start.bat` openen, browser op <http://localhost:8501>, zijbalk open, "Eerlijke test" **uit**.
+**Doorloop de demo één keer vooraf met internet:** de structuurformules worden dan opgehaald en lokaal bewaard, zodat
+ze tijdens de presentatie ook zonder (goede) wifi verschijnen.
 Houd `research\voorbeeldspectra\` open in de Verkenner, zodat je een bestand kunt slepen.
 
 ---
@@ -28,13 +30,15 @@ Wijs op de waarschuwing bovenaan: *hulpmiddel, geen bewijs*.
 ## 1:40 – 2:40 · Top 5 en uitleg (matching + expertsysteem)
 
 1. Upload weer ethylacetaat. Top 5: Ethyl Acetate bovenaan, daarna andere acetaat-esters.
+1b. Wijs op de **structuurformules** onder de top 5: alle vijf zijn acetaat-esters, wat meteen laat zien waarom ze
+   op elkaar lijken.
 2. Wijs op de melding *"Dit exacte spectrum staat zelf in de bibliotheek"* → zet **"Eerlijke test"** aan.
    Uitkomst in de eerlijke test: **Ethyl Acetate blijft op 1 (96,0%)**, nummer 2 is een andere acetaat (88,1%).
 3. Scrol naar de **overlay**: standaard ligt nummer 1 over het monster. Kies in "Referenties over het spectrum
    leggen" ook de andere vier: alle vijf acetaat-esters lijken sterk op elkaar, vooral boven 1500 cm⁻¹.
 3b. Scrol terug naar de grafiek, ga met de muis op de **rode stip bij 1766 cm⁻¹** staan (het gele vakje verschijnt)
-   en klik. Onder de grafiek verschijnt de tabel: *Volgens de regels: Ester (–COO–): C=O-rek* en een lijst met
-   mogelijke bindingen. Vertel: *"De tabel zegt 'mogelijke' bindingen, omdat de gebieden in de correlatietabel
+   en klik. Onder de grafiek verschijnt de piekinformatie: intensiteit, bandvorm, *Toewijzing volgens de regels:
+   Ester (–COO–), C=O-rek* en de mogelijke toewijzingen in IR-notatie, zoals *ν(C=O) – ester*. Vertel: *"De tabel zegt 'mogelijke' bindingen, omdat de gebieden in de correlatietabel
    overlappen. Onder 1500 cm⁻¹ zegt hij er eerlijk bij dat het vingerafdrukgebied is."*
 4. Scrol naar **functionele groepen**: *Ester (–COO–), zekerheid hoog: C=O-rek bij 1766 cm⁻¹, C–O–C-rek bij
    1242 cm⁻¹*. Vertel: *"Dit zijn vaste ALS-DAN-regels uit de correlatietabel. Er is niets getraind; je kunt elke

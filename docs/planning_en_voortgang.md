@@ -90,6 +90,9 @@ in de browser gecontroleerd (zie `docs/criteria_checklist.md`, E1–E3):
 | Opmaak in de stijl van IR-software / Windows 7 | ✅ |
 | Overlay van het spectrum met de top-5-stoffen | ✅ |
 | Klikken op een piek → tabel met de mogelijke binding | ✅ (niet getest op een tablet met aanraakscherm) |
+| Structuurformules van de top-5-stoffen | ✅ (vraagt internet; schakelaar in de zijbalk) |
+| Piekinformatie netjes en professioneel verwoorden | ✅ |
+| Emoji uit de titel | ✅ |
 
 ## 5. Mogelijke vervolgstappen (met meer tijd)
 

@@ -76,7 +76,7 @@ Legenda: ✅ gehaald · ⚠️ gedeeltelijk gehaald (zie toelichting) · ❌ nie
 | T4 | `start.bat` (dubbelklik) en `setup.bat` (venv, pakketten, database) | ✅ | `setup.bat`: getest op een schone kopie, exitcode 0 na 364 s, daarna 169 tests geslaagd (1 overgeslagen). `start.bat`: uitgevoerd vanuit de schone kopie; binnen 2 s luistert een nieuwe server op poort 8501 en de app laadt met de bibliotheek (18.016 spectra). Zie [`testresultaten.md`](testresultaten.md) §4 |
 | T5 | Git-repository, commit na elke afgeronde user story | ⚠️ | Repository met een duidelijke commit per story. De eerste vier stories zijn wel pas samen gecommit (vier aparte commits om 12:39) in plaats van elk direct na afronding; zie `docs/planning_en_voortgang.md` |
 | DoD1 | setup.bat en start.bat werken op een schone Windows-machine met Python 3.10+ | ⚠️ | Werkt op een schone kopie op deze Windows-computer met Python 3.14. Niet getest op een andere computer; Python 3.10/3.11 niet ondersteund (zie T1) |
-| DoD2 | Alle pytest-tests slagen; uitvoer in `docs/testresultaten.md` | ✅ | **197 passed** in het hoofdproject (laatste run); [`testresultaten.md`](testresultaten.md), gemaakt met `scripts/maak_testrapport.py` |
+| DoD2 | Alle pytest-tests slagen; uitvoer in `docs/testresultaten.md` | ✅ | **223 passed** in het hoofdproject (laatste run); [`testresultaten.md`](testresultaten.md), gemaakt met `scripts/maak_testrapport.py` |
 | DoD3 | Alle criteria in deze checklist met bewijs | ✅ | dit document |
 | DoD4 | Evaluatie echt gedraaid, cijfers in de documentatie | ✅ | `docs/evaluatie.md` (gemaakt door `scripts/evaluatie.py`) |
 
@@ -87,6 +87,10 @@ Legenda: ✅ gehaald · ⚠️ gedeeltelijk gehaald (zie toelichting) · ❌ nie
 | E1 | Opmaak in de stijl van IR-software / Windows 7-programma's | ✅ | `stijl.css` (titelbalk, groepvakken, knoppen, zijbalk, statusbalk), klassieke grafieken in `stofherkenner/grafieken.py`; `test_app.py::test_windows7_stijl_wordt_geladen`; gecontroleerd in de browser |
 | E2 | Het geüploade spectrum kunnen overlayen met de top-5-stoffen | ✅ | Keuzelijst "Referenties over het spectrum leggen" (standaard nummer 1, tot alle vijf); `test_app.py::test_overlay_kan_alle_top5_stoffen_tegelijk_tonen`; in de browser gecontroleerd met alle vijf |
 | E3 | Op een rode piekstip klikken en in een tabel zien welke binding het is | ✅ (met kanttekening) | `stofherkenner/piek_toewijzing.py` (correlatietabel + koppeling met de regels), `tests/test_piek_toewijzing.py`, `test_matching.py::test_pieken_uit_selectie`; in de browser geklikt op 1766 cm⁻¹ (ethylacetaat) → tabel met "Ester: C=O-rek" en de stip wordt geel; selectie opheffen met een dubbelklik. Kanttekening: de tabel geeft *mogelijke* bindingen (gebieden overlappen; onder 1500 cm⁻¹ staat "vingerafdrukgebied"); klikken met aanraken op een tablet is niet getest |
+
+| E4 | Structuurformules van de stoffen in de top 5 | ✅ (met kanttekening) | `stofherkenner/structuren.py` (NIST-molfile op NIST-nummer, lokaal bewaard, getekend met RDKit), `tests/test_structuren.py`, `test_app.py::test_structuurformules_bij_de_top5`; in de browser: 5 van 5 structuren bij tolueen, ook na het aanklikken van een piek. Kanttekening: de app gaat hiervoor online (alleen het NIST-nummer); schakelaar in de zijbalk; zonder internet alleen eerder opgehaalde structuren |
+| E5 | Piekinformatie netjes en professioneel verwoorden | ✅ | Tabel in IR-notatie (ν, δ, γ, ω) met intensiteit, bandvorm, toewijzing volgens de regels en mogelijke toewijzingen, plus legenda; `tests/test_piek_toewijzing.py`, `test_app.py::test_piekentabel_met_mogelijke_bindingen` |
+| E6 | Emoji uit de titel | ✅ | `test_app.py::test_titel_zonder_emoji`. Het pictogram op het browsertabblad (🧪) is niet veranderd |
 
 ## Leeruitkomsten
 

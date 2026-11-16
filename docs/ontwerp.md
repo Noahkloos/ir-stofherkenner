@@ -35,6 +35,10 @@ flowchart TD
         C --> M
         M --> T[Top 5 + waarschuwingen<br/>lage score / nummers 1-2 dicht bij elkaar]
         M --> G2[Overlay: 1 tot 5 referenties<br/>uit de top 5 over het monster]
+        T --> ST[structuren.py<br/>structuurformule per stof]
+        SC[(data/structuren<br/>lokale opslag)] <--> ST
+        NIST[NIST WebBook<br/>alleen NIST-nummer, schakelbaar] -.->|alleen als nog niet opgeslagen| ST
+        ST --> SV[RDKit tekent de structuur<br/>onder de top 5]
         R --> X[Uitleg: groep + piek als reden<br/>+ zekerheid hoog/middel/laag]
     end
 ```
@@ -61,6 +65,8 @@ keten kunnen draaien.
 | **Opmaak in Windows 7-/IR-software-stijl** (wens student) | Standaard Streamlit-uiterlijk | Ziet er vertrouwd en professioneel uit voor laboranten. Alleen CSS met lokale lettertypen (niets van internet); geen nepmenu's die niets doen | `stijl.css`, `test_app.py::test_windows7_stijl_wordt_geladen` |
 | **Overlay met 1–5 referenties** (wens student) | Eén referentie tegelijk | Vergelijken van de kandidaten in één oogopslag; standaard alleen nummer 1, zodat de grafiek rustig blijft | `test_app.py::test_overlay_kan_alle_top5_stoffen_tegelijk_tonen` |
 | **Klik op een piek → mogelijke binding(en)** (wens student) | Alleen de piekentabel | Directe uitleg bij elke piek. Eerlijk "mogelijke" bindingen, want gebieden overlappen; regels die de piek gebruiken staan apart, zodat tabel en paneel elkaar niet tegenspreken | `stofherkenner/piek_toewijzing.py`, `tests/test_piek_toewijzing.py` |
+| **Structuurformules bij de top 5** (wens student): ophalen bij NIST op NIST-nummer, lokaal bewaren, tekenen met RDKit | (a) PubChem op CAS-nummer; (b) alles vooraf downloaden; (c) geen structuren | Zelfde bron als de spectra (NIST) en elke stof in de bibliotheek heeft een NIST-nummer (niet elke stof een CAS-nummer). Alles vooraf downloaden zou bij de beleefde snelheid die NIST vraagt vele uren duren. Nadeel: de app gaat online; daarom een schakelaar en alleen het NIST-nummer wordt verstuurd (zie ethiek §6). Structuren worden pas aan het eind van de pagina geladen, zodat de rest niet hoeft te wachten | `stofherkenner/structuren.py`, `tests/test_structuren.py` |
+| **Piekinformatie in IR-notatie** (wens student: "netjes en professioneel") | Gewone zinnen ("C=O: rek, keton") | Zoals in IR-literatuur: ν/δ/γ/ω, intensiteit sterk/middel/zwak, bandvorm scherp/breed; legenda eronder | `stofherkenner/piek_toewijzing.py` |
 | **Spectrumgrafiek verandert niet na een klik** | Aangeklikte stip zelf geel kleuren in Python | Streamlit herkent een grafiek aan zijn inhoud; een andere figuur = "nieuwe" grafiek en dan is de klik vergeten (gevonden in de broncode van Streamlit). Plotly kleurt de stip daarom zelf in de browser | `stofherkenner/grafieken.py` |
 | **Validatie vóór alles** | Pas fouten afvangen als het misgaat | Kapotte of kwaadaardige bestanden komen niet verder dan de controle; alle fouten worden een nette melding | `tests/test_validatie.py` (o.a. 400 willekeurig beschadigde bestanden) |
 
