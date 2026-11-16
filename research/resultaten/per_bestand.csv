@@ -1,0 +1,51 @@
+aantal_punten_klopt,alles_juist,bestand,bibliotheek,cas_gevonden,data_gelezen,fout,gelukt,tijd_ms,titel_klopt,x_as_geleverd,x_bereik,x_eenheid,x_in_bestand,y_eenheid,y_in_bestand,y_waarden
+True,True,1-hexeen_gas_C592416_IR_0.jdx,eigen parser (stofherkenner.jcamp_lezen),True,True,,True,0.5,True,True,klopt,1/CM,1/CM,ABSORBANCE,ABSORBANCE,kloppen
+True,True,aceton_gas_C67641_IR_0.jdx,eigen parser (stofherkenner.jcamp_lezen),True,True,,True,0.52,True,True,klopt,1/CM,1/CM,ABSORBANCE,ABSORBANCE,kloppen
+True,True,aceton_gas_micrometer_C67641_IR_1.jdx,eigen parser (stofherkenner.jcamp_lezen),True,True,,True,1.64,True,True,klopt,MICROMETERS,MICROMETERS,TRANSMITTANCE,TRANSMITTANCE,kloppen
+True,True,azijnzuur_oplossing_C64197_IR_2.jdx,eigen parser (stofherkenner.jcamp_lezen),True,True,,True,1.97,True,True,klopt,1/CM,1/CM,TRANSMITTANCE,TRANSMITTANCE,kloppen
+True,True,benzonitril_vloeistof_micrometer_C100470_IR_1.jdx,eigen parser (stofherkenner.jcamp_lezen),True,True,,True,1.16,True,True,klopt,MICROMETERS,MICROMETERS,TRANSMITTANCE,TRANSMITTANCE,kloppen
+True,True,butylamine_vloeistof_C109739_IR_2.jdx,eigen parser (stofherkenner.jcamp_lezen),True,True,,True,2.08,True,True,klopt,1/CM,1/CM,TRANSMITTANCE,TRANSMITTANCE,kloppen
+True,True,ethanol_gas_C64175_IR_0.jdx,eigen parser (stofherkenner.jcamp_lezen),True,True,,True,0.49,True,True,klopt,1/CM,1/CM,ABSORBANCE,ABSORBANCE,kloppen
+True,True,ethanol_oplossing_C64175_IR_3.jdx,eigen parser (stofherkenner.jcamp_lezen),True,True,,True,2.27,True,True,klopt,1/CM,1/CM,TRANSMITTANCE,TRANSMITTANCE,kloppen
+True,True,ethylacetaat_gas_C141786_IR_0.jdx,eigen parser (stofherkenner.jcamp_lezen),True,True,,True,0.49,True,True,klopt,1/CM,1/CM,ABSORBANCE,ABSORBANCE,kloppen
+True,True,tolueen_vloeistof_C108883_IR_2.jdx,eigen parser (stofherkenner.jcamp_lezen),True,True,,True,1.13,True,True,klopt,1/CM,1/CM,TRANSMITTANCE,TRANSMITTANCE,kloppen
+True,True,1-hexeen_gas_C592416_IR_0.jdx,jcamp,True,True,,True,1.19,True,True,klopt,1/CM,1/CM,ABSORBANCE,ABSORBANCE,kloppen
+True,True,aceton_gas_C67641_IR_0.jdx,jcamp,True,True,,True,1.27,True,True,klopt,1/CM,1/CM,ABSORBANCE,ABSORBANCE,kloppen
+True,True,aceton_gas_micrometer_C67641_IR_1.jdx,jcamp,True,True,,True,6.31,True,True,klopt,MICROMETERS,MICROMETERS,TRANSMITTANCE,TRANSMITTANCE,kloppen
+True,True,azijnzuur_oplossing_C64197_IR_2.jdx,jcamp,True,True,,True,8.82,True,True,klopt,1/CM,1/CM,TRANSMITTANCE,TRANSMITTANCE,kloppen
+True,True,benzonitril_vloeistof_micrometer_C100470_IR_1.jdx,jcamp,True,True,,True,4.82,True,True,klopt,MICROMETERS,MICROMETERS,TRANSMITTANCE,TRANSMITTANCE,kloppen
+True,True,butylamine_vloeistof_C109739_IR_2.jdx,jcamp,True,True,,True,9.35,True,True,klopt,1/CM,1/CM,TRANSMITTANCE,TRANSMITTANCE,kloppen
+True,True,ethanol_gas_C64175_IR_0.jdx,jcamp,True,True,,True,1.41,True,True,klopt,1/CM,1/CM,ABSORBANCE,ABSORBANCE,kloppen
+True,True,ethanol_oplossing_C64175_IR_3.jdx,jcamp,True,True,,True,9.25,True,True,klopt,1/CM,1/CM,TRANSMITTANCE,TRANSMITTANCE,kloppen
+True,True,ethylacetaat_gas_C141786_IR_0.jdx,jcamp,True,True,,True,1.41,True,True,klopt,1/CM,1/CM,ABSORBANCE,ABSORBANCE,kloppen
+True,True,tolueen_vloeistof_C108883_IR_2.jdx,jcamp,True,True,,True,5.12,True,True,klopt,1/CM,1/CM,TRANSMITTANCE,TRANSMITTANCE,kloppen
+False,False,1-hexeen_gas_C592416_IR_0.jdx,nmrglue (jcampdx),True,False,,True,0.23,True,False,geen x-as,1/CM,1/CM,ABSORBANCE,ABSORBANCE,geen data
+False,False,aceton_gas_C67641_IR_0.jdx,nmrglue (jcampdx),True,False,,True,0.26,True,False,geen x-as,1/CM,1/CM,ABSORBANCE,ABSORBANCE,geen data
+False,False,aceton_gas_micrometer_C67641_IR_1.jdx,nmrglue (jcampdx),True,False,,True,0.53,True,False,geen x-as,MICROMETERS,MICROMETERS,TRANSMITTANCE,TRANSMITTANCE,geen data
+False,False,azijnzuur_oplossing_C64197_IR_2.jdx,nmrglue (jcampdx),True,False,,True,0.56,True,False,geen x-as,1/CM,1/CM,TRANSMITTANCE,TRANSMITTANCE,geen data
+False,False,benzonitril_vloeistof_micrometer_C100470_IR_1.jdx,nmrglue (jcampdx),True,False,,True,0.4,True,False,geen x-as,MICROMETERS,MICROMETERS,TRANSMITTANCE,TRANSMITTANCE,geen data
+False,False,butylamine_vloeistof_C109739_IR_2.jdx,nmrglue (jcampdx),True,False,,True,0.6,True,False,geen x-as,1/CM,1/CM,TRANSMITTANCE,TRANSMITTANCE,geen data
+False,False,ethanol_gas_C64175_IR_0.jdx,nmrglue (jcampdx),True,False,,True,0.23,True,False,geen x-as,1/CM,1/CM,ABSORBANCE,ABSORBANCE,geen data
+False,False,ethanol_oplossing_C64175_IR_3.jdx,nmrglue (jcampdx),True,False,,True,0.59,True,False,geen x-as,1/CM,1/CM,TRANSMITTANCE,TRANSMITTANCE,geen data
+False,False,ethylacetaat_gas_C141786_IR_0.jdx,nmrglue (jcampdx),True,False,,True,0.24,True,False,geen x-as,1/CM,1/CM,ABSORBANCE,ABSORBANCE,geen data
+False,False,tolueen_vloeistof_C108883_IR_2.jdx,nmrglue (jcampdx),True,False,,True,0.4,True,False,geen x-as,1/CM,1/CM,TRANSMITTANCE,TRANSMITTANCE,geen data
+True,True,1-hexeen_gas_C592416_IR_0.jdx,spectrochempy,False,True,,True,6.35,True,True,klopt,cm⁻¹,1/CM,a.u.,ABSORBANCE,kloppen
+True,True,aceton_gas_C67641_IR_0.jdx,spectrochempy,False,True,,True,5.15,True,True,klopt,cm⁻¹,1/CM,a.u.,ABSORBANCE,kloppen
+True,True,aceton_gas_micrometer_C67641_IR_1.jdx,spectrochempy,False,True,,True,7.25,True,True,klopt,μm,MICROMETERS,%,TRANSMITTANCE,kloppen
+True,True,azijnzuur_oplossing_C64197_IR_2.jdx,spectrochempy,False,True,,True,8.08,True,True,klopt,cm⁻¹,1/CM,%,TRANSMITTANCE,kloppen
+True,True,benzonitril_vloeistof_micrometer_C100470_IR_1.jdx,spectrochempy,False,True,,True,6.8,True,True,klopt,μm,MICROMETERS,%,TRANSMITTANCE,kloppen
+True,True,butylamine_vloeistof_C109739_IR_2.jdx,spectrochempy,False,True,,True,9.23,True,True,klopt,cm⁻¹,1/CM,%,TRANSMITTANCE,kloppen
+True,True,ethanol_gas_C64175_IR_0.jdx,spectrochempy,False,True,,True,7.09,True,True,klopt,cm⁻¹,1/CM,a.u.,ABSORBANCE,kloppen
+True,True,ethanol_oplossing_C64175_IR_3.jdx,spectrochempy,False,True,,True,8.22,True,True,klopt,cm⁻¹,1/CM,%,TRANSMITTANCE,kloppen
+True,True,ethylacetaat_gas_C141786_IR_0.jdx,spectrochempy,False,True,,True,4.96,True,True,klopt,cm⁻¹,1/CM,a.u.,ABSORBANCE,kloppen
+True,True,tolueen_vloeistof_C108883_IR_2.jdx,spectrochempy,False,True,,True,6.2,True,True,klopt,cm⁻¹,1/CM,%,TRANSMITTANCE,kloppen
+,,1-hexeen_gas_C592416_IR_0.jdx,chemparse,,,NotImplementedError: chemparse kan geen JCAMP-DX lezen: het is een parser voor chemische formules (functies: ['parse_formula']),False,0.02,,,,,1/CM,,ABSORBANCE,
+,,aceton_gas_C67641_IR_0.jdx,chemparse,,,NotImplementedError: chemparse kan geen JCAMP-DX lezen: het is een parser voor chemische formules (functies: ['parse_formula']),False,0.01,,,,,1/CM,,ABSORBANCE,
+,,aceton_gas_micrometer_C67641_IR_1.jdx,chemparse,,,NotImplementedError: chemparse kan geen JCAMP-DX lezen: het is een parser voor chemische formules (functies: ['parse_formula']),False,0.02,,,,,MICROMETERS,,TRANSMITTANCE,
+,,azijnzuur_oplossing_C64197_IR_2.jdx,chemparse,,,NotImplementedError: chemparse kan geen JCAMP-DX lezen: het is een parser voor chemische formules (functies: ['parse_formula']),False,0.01,,,,,1/CM,,TRANSMITTANCE,
+,,benzonitril_vloeistof_micrometer_C100470_IR_1.jdx,chemparse,,,NotImplementedError: chemparse kan geen JCAMP-DX lezen: het is een parser voor chemische formules (functies: ['parse_formula']),False,0.01,,,,,MICROMETERS,,TRANSMITTANCE,
+,,butylamine_vloeistof_C109739_IR_2.jdx,chemparse,,,NotImplementedError: chemparse kan geen JCAMP-DX lezen: het is een parser voor chemische formules (functies: ['parse_formula']),False,0.01,,,,,1/CM,,TRANSMITTANCE,
+,,ethanol_gas_C64175_IR_0.jdx,chemparse,,,NotImplementedError: chemparse kan geen JCAMP-DX lezen: het is een parser voor chemische formules (functies: ['parse_formula']),False,0.01,,,,,1/CM,,ABSORBANCE,
+,,ethanol_oplossing_C64175_IR_3.jdx,chemparse,,,NotImplementedError: chemparse kan geen JCAMP-DX lezen: het is een parser voor chemische formules (functies: ['parse_formula']),False,0.01,,,,,1/CM,,TRANSMITTANCE,
+,,ethylacetaat_gas_C141786_IR_0.jdx,chemparse,,,NotImplementedError: chemparse kan geen JCAMP-DX lezen: het is een parser voor chemische formules (functies: ['parse_formula']),False,0.01,,,,,1/CM,,ABSORBANCE,
+,,tolueen_vloeistof_C108883_IR_2.jdx,chemparse,,,NotImplementedError: chemparse kan geen JCAMP-DX lezen: het is een parser voor chemische formules (functies: ['parse_formula']),False,0.01,,,,,1/CM,,TRANSMITTANCE,

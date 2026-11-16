@@ -1,0 +1,6 @@
+bibliotheek,versie,importtijd_s,bestanden_zonder_fout,data_gelezen,volledig_juist,titel_juist,cas_gevonden,mediane_tijd_ms,eerste_fout
+eigen parser (stofherkenner.jcamp_lezen),-,0.0,10/10,10/10,10/10,10/10,10/10,1.15,
+jcamp,1.3.2,0.03,10/10,10/10,10/10,10/10,10/10,4.97,
+nmrglue (jcampdx),0.12,1.08,10/10,0/10,0/10,10/10,10/10,0.4,
+spectrochempy,1.3.1,0.06,10/10,10/10,10/10,10/10,0/10,6.95,
+chemparse,0.3.2,0.0,0/10,0/10,0/10,0/10,0/10,,NotImplementedError: chemparse kan geen JCAMP-DX lezen: het is een parser voor chemische formules (functies: ['parse_formula'])
