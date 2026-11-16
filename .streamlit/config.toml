@@ -1,0 +1,14 @@
+# Instellingen voor Streamlit (de webapp)
+
+[server]
+# Streamlit zelf laat bestanden tot 20 MB door. De app keurt alles boven 5 MB
+# daarna zelf af met een duidelijke Nederlandse melding (zie stofherkenner/validatie.py).
+maxUploadSize = 20
+
+[browser]
+# Geen gebruiksstatistieken naar Streamlit sturen
+gatherUsageStats = false
+
+[theme]
+base = "light"
+primaryColor = "#1f4e79"

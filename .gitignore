@@ -1,0 +1,24 @@
+# Virtual environment
+.venv/
+
+# Python-cache
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+# De NIST-data zelf komt NIET in git (gebruiksvoorwaarden NIST SRD 69):
+# iedereen downloadt die lokaal met setup.bat / scripts/download_database.py
+data/raw/
+data/library.npz
+data/metadata.csv
+data/build_log.txt
+data/overgeslagen.csv
+
+# Tijdelijke bestanden
+*.tmp
+*.log
+.streamlit/secrets.toml
+
+# Instellingen van de AI-assistent (niet nodig voor de app)
+.claude/
