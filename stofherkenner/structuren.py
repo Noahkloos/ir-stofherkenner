@@ -73,6 +73,25 @@ def _cachebestand(cachemap: Path, nist_id: str) -> Path:
     return cachemap / f"{nist_id}.mol"
 
 
+def normaliseer_regeleindes(tekst: str) -> str:
+    """Zet alle regeleindes om naar "\\n".
+
+    NIST levert molfiles met Windows-regeleindes ("\\r\\n"). Zonder deze stap kwam
+    er bij opslaan op Windows een extra "\\r" bij, en dan kon RDKit het bestand uit
+    de cache niet meer lezen (gevonden bij het testen in de browser). Ook al
+    beschadigde bestanden ("\\r\\r\\n") worden hiermee weer goed.
+    """
+    return re.sub(r"\r+\n", "\n", tekst).replace("\r", "\n")
+
+
+def _lees_cache(pad: Path) -> str:
+    return normaliseer_regeleindes(pad.read_bytes().decode("latin-1"))
+
+
+def _schrijf_cache(pad: Path, tekst: str) -> None:
+    pad.write_bytes(normaliseer_regeleindes(tekst).encode("latin-1"))   # bytes: Windows voegt dan niets toe
+
+
 def _download(nist_id: str) -> str | None:
     """Haal het molfile op bij NIST. Geeft de tekst terug, of None bij een netwerkfout."""
     global _laatste_verzoek
@@ -99,7 +118,7 @@ def haal_molfile(nist_id: str, cachemap: Path, online: bool = True) -> str | Non
         return None
     pad = _cachebestand(cachemap, nist_id)
     if pad.exists():
-        inhoud = pad.read_text(encoding="latin-1")
+        inhoud = _lees_cache(pad)
         return None if inhoud == GEEN_STRUCTUUR else inhoud
 
     if not online or OFFLINE:
@@ -111,15 +130,16 @@ def haal_molfile(nist_id: str, cachemap: Path, online: bool = True) -> str | Non
     if tekst is None:
         _mislukt[nist_id] = time.time()
         return None
+    tekst = normaliseer_regeleindes(tekst)
     atomen = aantal_atomen(tekst)
     if atomen < 0:                                   # geen molfile (bijv. een foutpagina): niet bewaren
         _mislukt[nist_id] = time.time()
         return None
     cachemap.mkdir(parents=True, exist_ok=True)
     if atomen == 0:                                  # NIST zegt: geen structuur bekend. Dat onthouden we.
-        pad.write_text(GEEN_STRUCTUUR, encoding="latin-1")
+        _schrijf_cache(pad, GEEN_STRUCTUUR)
         return None
-    pad.write_text(tekst, encoding="latin-1")
+    _schrijf_cache(pad, tekst)
     return tekst
 
 

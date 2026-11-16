@@ -78,6 +78,22 @@ def test_ophalen_en_bewaren(tmp_path, online_nep):
     assert gevraagd == ["C67641"]                                   # dus maar één keer gedownload
 
 
+def test_windows_regeleindes_overleven_de_cache(tmp_path, online_nep):
+    """NIST levert '\\r\\n'. Na opslaan en weer inlezen moet de structuur nog steeds te tekenen zijn
+    (fout gevonden in de browser: tweede keer, uit de cache, mislukte het tekenen)."""
+    gevraagd, antwoorden = online_nep
+    antwoorden["C67641"] = ACETON_MOL.replace("\n", "\r\n")
+    assert s.structuur_svg("C67641", tmp_path) is not None           # eerste keer: van "internet"
+    assert b"\r" not in (tmp_path / "C67641.mol").read_bytes()
+    assert s.structuur_svg("C67641", tmp_path) is not None           # tweede keer: uit de cache
+    assert gevraagd == ["C67641"]
+
+
+def test_al_beschadigde_cachebestanden_worden_hersteld(tmp_path):
+    (tmp_path / "C67641.mol").write_bytes(ACETON_MOL.replace("\n", "\r\r\n").encode("latin-1"))
+    assert s.structuur_svg("C67641", tmp_path, online=False) is not None
+
+
 def test_foutpagina_wordt_niet_bewaard(tmp_path, online_nep):
     gevraagd, antwoorden = online_nep
     antwoorden["C2000"] = "<html>Service unavailable</html>"      # NIST geeft een foutpagina
