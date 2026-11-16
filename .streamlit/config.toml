@@ -4,6 +4,9 @@
 # Streamlit zelf laat bestanden tot 20 MB door. De app keurt alles boven 5 MB
 # daarna zelf af met een duidelijke Nederlandse melding (zie stofherkenner/validatie.py).
 maxUploadSize = 20
+# headless: Streamlit vraagt bij de eerste start niet om een e-mailadres en opent
+# de browser niet zelf; start.bat opent de browser.
+headless = true
 
 [browser]
 # Geen gebruiksstatistieken naar Streamlit sturen
