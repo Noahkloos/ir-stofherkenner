@@ -1,0 +1,10 @@
+variant,compressie,venster,top1,top5,top1_ruis_0.01,top5_ruis_0.01,top1_ruis_0.03,top5_ruis_0.03
+kale absorbantie (uitgangssituatie),geen,0,0.3013,0.4352,0.2864,0.4251,0.178,0.2853
+alleen wortel,wortel,0,0.297,0.4309,0.204,0.3326,0.0505,0.0951
+alleen logaritme,log,0,0.2237,0.3342,0.0909,0.1461,0.0133,0.0213
+alleen afgeleide,geen,9,0.3464,0.4835,0.3486,0.4835,0.3475,0.4851
+wortel + afgeleide,wortel,9,0.4702,0.6291,0.457,0.6095,0.4426,0.5898
+derdemachtswortel + afgeleide,derdemachtswortel,9,0.5027,0.6583,0.492,0.6477,0.4687,0.6148
+logaritme + afgeleide (venster 9),log,9,0.5399,0.6966,0.5202,0.6838,0.4883,0.6488
+logaritme + afgeleide (venster 5),log,5,0.5186,0.6823,0.4979,0.661,0.4692,0.6158
+logaritme + afgeleide (venster 13),log,13,0.5117,0.6785,0.4995,0.6626,0.4745,0.6328

@@ -1,0 +1,4 @@
+methode,aantal_spectra,top1,top5,top1_zelfde_fase_partner,top1_alleen_andere_fase,zoektijd_mediaan_ms,zoektijd_max_ms
+cosinus,3934,0.529,0.695,0.8547,0.4066,22.5297,28.199
+pearson,3934,0.5292,0.695,0.8547,0.407,34.7811,41.0396
+euclidisch,3934,0.4942,0.6497,0.8287,0.3685,22.8918,28.3599
