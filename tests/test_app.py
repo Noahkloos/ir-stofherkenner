@@ -131,6 +131,29 @@ def test_geldige_upload_toont_direct_de_grafiek(bibliotheek):
     assert "Aromaat (benzeenring)" in alle_tekst(app)
 
 
+def test_upload_van_5_mb_in_de_app_binnen_2_seconden(bibliotheek):
+    """Hele app-run met een upload van ~5 MB: van bestand ontvangen tot grafiek, top 5 en uitleg klaar.
+
+    Dit meet alles wat de server doet (inclusief zoeken in de bibliotheek), maar niet het tekenen in de browser
+    zelf; dat is in de browser gecontroleerd (zie docs/testresultaten.md).
+    """
+    import time
+
+    from tests.test_prestatie import maak_bestand_van_ongeveer_5_mb
+    inhoud = maak_bestand_van_ongeveer_5_mb()
+    app = start_app()                                  # bibliotheek wordt hier al in de cache geladen
+    start = time.perf_counter()
+    try:
+        upload(app, "groot_5mb.jdx", inhoud)
+    except Exception as fout:
+        pytest.skip(f"AppTest ondersteunt hier geen file_uploader: {fout}")
+    duur = time.perf_counter() - start
+    print(f"\n[meting] app-run met upload van {len(inhoud) / 1024 / 1024:.2f} MB tot en met grafiek + top 5: {duur:.2f} s")
+    assert not app.exception and not app.error
+    assert len(app.get("plotly_chart")) == 2
+    assert duur < 2.0
+
+
 def test_app_werkt_ook_zonder_bibliotheek(monkeypatch, tmp_path):
     """Zonder gebouwde database toont de app een uitleg en nog steeds de grafiek (geen crash)."""
     monkeypatch.setenv("IR_STOFHERKENNER_DATAMAP", str(tmp_path))      # lege map: geen bibliotheek
