@@ -1,0 +1,100 @@
+AI-BEOORDELING VAN HET PROJECT IR-STOFHERKENNER
+================================================
+
+Datum:      17 november 2026
+Door:       Claude (AI-assistent, Claude Code), op verzoek van de student
+Let op:     Dit is een beoordeling door een AI, niet door een docent of een echte persoon.
+            De officiele beoordelingsrubric van de minor was niet bekend; de oordelen
+            zijn dus een indicatie.
+
+
+PROMPT VAN DE STUDENT
+---------------------
+"ok je kent het gehelen project zou je hier feedback op kunnen geven als beoordelings expert"
+
+
+FEEDBACK
+--------
+
+TOTAALOORDEEL
+
+Technisch is het een sterk project: een werkende app, onderbouwde keuzes, echte
+metingen en veel tests. Het grootste risico zit niet in het product maar in het
+eigen aandeel van de student. Alle code en de meeste teksten zijn door AI gemaakt.
+De beoordeling staat of valt met hoe goed de student kan uitleggen, verantwoorden
+en reflecteren.
+
+
+PER ONDERDEEL
+
+1. User stories (US, RS, LS) - sterk
+   + Alle acceptatiecriteria hebben bewijs (docs/criteria_checklist.md).
+   + Validatie is grondig getest: zes verplichte kapotte bestanden plus 400
+     willekeurig beschadigde.
+   + Het onderzoek corrigeert de sprintplanning met bewijs (chemparse leest geen
+     JCAMP-DX).
+   - Python 3.10 wordt niet ondersteund (alleen 3.12+). Dat is eerlijk gemeld, maar
+     het blijft een niet-gehaald criterium.
+   - "Commit na elke story" is maar gedeeltelijk gehaald: de eerste vier stories zijn
+     tegelijk gecommit.
+
+2. Evaluatie en matching - sterk, met een kanttekening
+   + Leave-one-out op 3.934 spectra, de duplicaten eerlijk weggefilterd, en een
+     foutanalyse met isomeren en homologe reeksen.
+   + De verbetering van 31% naar 53% top-1 is onderbouwd en gecontroleerd op een
+     controlehelft.
+   - De controlehelft was niet volledig onafhankelijk. Dat staat er eerlijk bij, maar
+     een beoordelaar kan doorvragen.
+   - Alleen getest met NIST-spectra, niet met een eigen meting (bijv. ATR uit het lab).
+     Juist voor een chemisch technoloog ligt dat voor de hand.
+     DIT IS HET BELANGRIJKSTE INHOUDELIJKE VERBETERPUNT.
+
+3. LU1 - AI-impact op de beroepspraktijk: voldoende, kan sterk worden
+   + De analyse leunt op echte cijfers (85% versus 41% top-1 per fase, en ongeveer
+     1 op de 5 foute antwoorden zonder waarschuwing).
+   - Het is nog een concept. De praktijkkant ("hoe gaat het nu op een lab?") ontbreekt.
+     Een kort gesprek met een laborant of stagebegeleider maakt dit veel sterker.
+
+4. LU2 - Ontwerpen, realiseren en presenteren: sterk
+   + Een architectuurschema, een tabel met ontwerpkeuzes en alternatieven, een
+     demoscript met eerlijke foutvoorbeelden, en setup.bat getest op een schone kopie.
+   - De app is door veel iteraties breed geworden (stijl, overlay, structuren,
+     klikbare pieken). Laat in de presentatie zien welke wensen van de student kwamen
+     en waarom.
+   - De Streamlit-hosting is nog niet aantoonbaar werkend en nog niet gedocumenteerd.
+
+5. LU3 - Ethiek en verantwoord gebruik: inhoudelijk sterk, maar met een spanning
+   + Er is een disclaimer, de score wordt niet als zekerheid gepresenteerd, en de
+     waarschuwingen zijn gemeten.
+   - De eigen keuzes staan op gespannen voet met het eigen ethiekdocument. De data komt
+     uit een fork nadat de maker hem had verwijderd, de repository is openbaar met
+     NIST-bestanden, en de app wordt publiek gehost. De app gaat ook online voor de
+     structuurformules. Dat is verdedigbaar, maar alleen als de student die afweging
+     zelf en overtuigend opschrijft. Nu staan er open vragen met [CONCEPT].
+
+6. LU4 - AI-tools en -technieken: sterk bewijs, reflectie ontbreekt
+   + Het logboek is eerlijk en concreet: fouten van de AI staan erin, net als hoe die
+     gevonden zijn.
+   + De keuze voor symbolische AI in plaats van machine learning is goed onderbouwd.
+   - De reflectie van de student op de samenwerking met AI ontbreekt nog. Met name: waar
+     heeft de student de AI gecorrigeerd of bijgestuurd, en waar niet?
+
+7. LU5 - Zelfsturing: voldoende
+   + De student heeft beslissingen zelf genomen: over de database, openbaar of prive,
+     en de extra wensen.
+   - De planning is achteraf opgesteld en de reflectie is leeg.
+
+
+TOP 5 OM NOG TE DOEN (OP PRIORITEIT)
+
+1. Zorg dat je alles kunt uitleggen. Oefen de piekdetectie in vier stappen,
+   cosinusgelijkenis en waarom je geen machine learning gebruikt, zonder spiekbriefje.
+   Daar word je op beoordeeld.
+2. Schrijf je reflecties en lees de concepten na. Doe dat in je eigen woorden, en haal
+   de [CONCEPT]-markeringen weg.
+3. Test een echte eigen meting (ATR uit het lab). Neem op of de juiste stof in de
+   top 5 komt. Dat is sterk bewijs voor LU1 en LU2.
+4. Haal echte feedback van twee mensen (bijv. een klasgenoot en een laborant) en leg
+   vast wat je ermee deed.
+5. Neem een standpunt in over de NIST-data. Openbare repository en publieke hosting:
+   kies bewust en onderbouw het, of zet de repository alsnog op prive.
